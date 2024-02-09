@@ -14,69 +14,21 @@
         android:text="New Players"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/inputName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/inputName"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".175" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <EditText
-        android:id="@+id/inputName"
+        android:id="@+id/editTextText"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:ems="10"
-        android:hint="Name"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/buttonAddPlayer"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="@+id/buttonAddPlayer"
-        app:layout_constraintTop_toBottomOf="@+id/textNewPlayers" />
-
-    <Button
-        android:id="@+id/buttonAddPlayer"
-        android:layout_width="175dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="300dp"
-        android:text="Add Player"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="@+id/buttonLoadLastPlayers"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/buttonLoadLastPlayers"
-        app:layout_constraintTop_toBottomOf="@+id/textNewPlayers" />
-
-    <Button
-        android:id="@+id/buttonStartRound"
-        android:layout_width="175dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="500dp"
-        android:text="Start Round"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNewPlayers" />
-
-    <Button
-        android:id="@+id/buttonLoadLastPlayers"
-        android:layout_width="175dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="375dp"
-        android:text="Load Last Players"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="@+id/buttonStartRound"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/buttonStartRound"
-        app:layout_constraintTop_toBottomOf="@+id/textNewPlayers" />
-
-    <TextView
-        android:id="@+id/textViewPlayers"
-        android:layout_width="250dp"
-        android:layout_height="225dp"
-        android:text="No Players Added"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="@+id/textNewPlayers"
+        app:layout_constraintStart_toStartOf="@+id/textNewPlayers"
         app:layout_constraintTop_toBottomOf="@+id/textNewPlayers" />
 </androidx.constraintlayout.widget.ConstraintLayout>
