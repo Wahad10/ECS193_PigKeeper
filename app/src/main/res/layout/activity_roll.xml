@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4CAF50"
+    tools:context=".RollActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTop"
+        android:layout_width="400dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFB907"
+        app:cardBackgroundColor="#2196F3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textYourScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="360dp"
+            android:layout_marginTop="15dp"
+            android:text="Tim\n10"
+            android:textAlignment="textEnd"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textTopScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:text="Jason\n24"
+            android:textAlignment="textStart"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardBottom"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="#673AB7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageButton
+                android:id="@+id/imageButtonBadRoll"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="78dp"
+                app:srcCompat="@mipmap/badroll_foreground" />
+
+            <ImageButton
+                android:id="@+id/imageButtonUndoRoll"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="78dp"
+                app:srcCompat="@mipmap/undo_foreground" />
+
+            <ImageButton
+                android:id="@+id/imageButtonNextRoll"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:srcCompat="@mipmap/check_foreground" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/imageButtonL1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardTop"
+        app:srcCompat="@mipmap/dice_one_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonL2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonL1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonL1"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonL1"
+        app:srcCompat="@mipmap/dice_two_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonL3"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonL2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonL2"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonL2"
+        app:srcCompat="@mipmap/dice_three_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonL4"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonL3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonL3"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonL3"
+        app:srcCompat="@mipmap/dice_four_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonL5"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonL4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonL4"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonL4"
+        app:srcCompat="@mipmap/dice_five_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonL6"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardBottom"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonL5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonL5"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonL5"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@mipmap/dice_six_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonR1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardTop"
+        app:srcCompat="@mipmap/dice_one_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonR2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonR1"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonR1"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonR1"
+        app:srcCompat="@mipmap/dice_two_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonR3"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonR2"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonR2"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonR2"
+        app:srcCompat="@mipmap/dice_three_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonR4"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonR3"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonR3"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonR3"
+        app:srcCompat="@mipmap/dice_four_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonR5"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonR4"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonR4"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonR4"
+        app:srcCompat="@mipmap/dice_five_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonR6"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonR5"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonR5"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonR5"
+        app:srcCompat="@mipmap/dice_six_foreground" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
