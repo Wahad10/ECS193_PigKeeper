@@ -15,8 +15,9 @@ class NewPlayersActivity : AppCompatActivity() {
 
         val textViewPlayers = findViewById<TextView>(R.id.textViewPlayers)
         val inputName = findViewById<EditText>(R.id.inputName)
-        val namesArray = ArrayList<String>()
+        var namesArray = ArrayList<String>()
         val playersEntered = StringBuilder()
+        val globalVariable = GlobalData.instance
 
 
         val buttonAddPlayer = findViewById<Button>(R.id.buttonAddPlayer)
@@ -30,10 +31,18 @@ class NewPlayersActivity : AppCompatActivity() {
 
         val buttonStartRound = findViewById<Button>(R.id.buttonStartRound)
         buttonStartRound.setOnClickListener{
+            globalVariable.players = namesArray
             startActivity(Intent(this@NewPlayersActivity, TurnOrderActivity::class.java))
         }
 
         val buttonLoadLastPlayers = findViewById<Button>(R.id.buttonLoadLastPlayers)
-        //need to get the last players names here
+        buttonLoadLastPlayers.setOnClickListener{
+            //If there was a previous game, get the players
+            if(globalVariable.score.size !=0){
+                println(globalVariable.score.size)
+                namesArray = globalVariable.players
+                startActivity(Intent(this@NewPlayersActivity, TurnOrderActivity::class.java))
+            }
+        }
     }
 }
