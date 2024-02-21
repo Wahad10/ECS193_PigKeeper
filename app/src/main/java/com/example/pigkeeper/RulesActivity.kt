@@ -7,5 +7,8 @@ class RulesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rules)
+
+        var globalVariable = GlobalData.instance
+        //Save rules to globalData
     }
 }
