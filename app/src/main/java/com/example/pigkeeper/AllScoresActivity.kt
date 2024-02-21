@@ -5,15 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-
-class LastPotActivity : AppCompatActivity() {
+class AllScoresActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_last_pot)
+        setContentView(R.layout.activity_all_scores)
 
         val globalVariable = GlobalData.instance
 
-        var playerNames = ArrayList<String>();
+        var playerNames = ArrayList<String>()
 
         var playerScores = globalVariable.score
 
@@ -27,24 +26,22 @@ class LastPotActivity : AppCompatActivity() {
             playerNames = globalVariable.players
         }
 
-
-        val lastPotScores = mutableMapOf<String, Int>()
+        val allScores = mutableMapOf<String, Int>()
         for (i in playerNames.indices) {
-            lastPotScores[playerNames[i]] = playerScores[i]
+            allScores[playerNames[i]] = playerScores[i]
         }
 
-        val textViewLastPotScores = findViewById<TextView>(R.id.textViewLastPotScores)
+        val textViewAllScores = findViewById<TextView>(R.id.textViewAllScores)
 
         val formattedScores = StringBuilder()
-        for ((player, score) in lastPotScores) {
+        for ((player, score) in allScores) {
             formattedScores.append("$player: $score\n")
         }
 
-        textViewLastPotScores.text = formattedScores.toString()
+        textViewAllScores.text = formattedScores.toString()
 
-
-
-        val buttonBack = findViewById<Button>(R.id.buttonLastPotBack)
-        buttonBack.setOnClickListener{startActivity(Intent(this@LastPotActivity, MainActivity::class.java))}
+        val buttonBack = findViewById<Button>(R.id.buttonAllScoresBack)
+        buttonBack.setOnClickListener{startActivity(Intent(this@AllScoresActivity, RollActivity::class.java))}
     }
+
 }
