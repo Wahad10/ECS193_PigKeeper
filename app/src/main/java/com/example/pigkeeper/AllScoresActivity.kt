@@ -12,9 +12,11 @@ class AllScoresActivity : AppCompatActivity() {
 
         val globalVariable = GlobalData.instance
 
-        var playerNames = ArrayList<String>()
+        //var playerNames = ArrayList<String>()
 
-        var playerScores = globalVariable.score
+        var playerScores = globalVariable.nameToScore
+
+        /**var playerScores = globalVariable.score
 
         //If no score then just leave some default
         if (playerScores.size == 0){
@@ -29,12 +31,12 @@ class AllScoresActivity : AppCompatActivity() {
         val allScores = mutableMapOf<String, Int>()
         for (i in playerNames.indices) {
             allScores[playerNames[i]] = playerScores[i]
-        }
+        }**/
 
         val textViewAllScores = findViewById<TextView>(R.id.textViewAllScores)
 
         val formattedScores = StringBuilder()
-        for ((player, score) in allScores) {
+        for ((player, score) in playerScores) {
             formattedScores.append("$player: $score\n")
         }
 

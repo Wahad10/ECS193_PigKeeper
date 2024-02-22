@@ -38,8 +38,8 @@ class NewPlayersActivity : AppCompatActivity() {
         val buttonLoadLastPlayers = findViewById<Button>(R.id.buttonLoadLastPlayers)
         buttonLoadLastPlayers.setOnClickListener{
             //If there was a previous game, get the players
-            if(globalVariable.score.size !=0){
-                println(globalVariable.score.size)
+            if(globalVariable.nameToScore.size !=0){
+                //println(globalVariable.score.size)
                 namesArray = globalVariable.players
                 startActivity(Intent(this@NewPlayersActivity, TurnOrderActivity::class.java))
             }

@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView
 
 class RollActivity : AppCompatActivity() {
     //Necessary data from other screens
+    val globalVariable = GlobalData.instance
     private val namesArray = ArrayList<String>()
     private var nameToScore = HashMap<String, Int>()
 
@@ -26,6 +27,7 @@ class RollActivity : AppCompatActivity() {
     private var currentPlayerNewScore: Int = 0
     private var lastPlayer: String = ""
     private var lastPlayerLastScore: Int = 0
+    private var endingPlayer: String = ""
 
     //Items from layout that need to be passed to other functions
     private lateinit var textYourScore: TextView
@@ -38,8 +40,8 @@ class RollActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_roll)
 
-        val globalVariable = GlobalData.instance
 
+        //only get the players that are in this round
         val players = globalVariable.players
         val sittingOut = globalVariable.sittingOut
         for(player in players){
@@ -49,13 +51,11 @@ class RollActivity : AppCompatActivity() {
         }
         currentPlayer = namesArray[0]
 
-        //HAVE TO RECONCILE THESE BOTTOM TWO DATA STRUCTURES, CHANGE GLOBAL VARIABLE SCORE TO HASHMAP
-        //Idk if you need this
-        val score = globalVariable.score
         //hashmap holds player names and records their scores
         for (name in namesArray){
             nameToScore[name] = 0
         }
+        globalVariable.nameToScore = this.nameToScore
 
 
         //Get all items from layout
@@ -88,7 +88,7 @@ class RollActivity : AppCompatActivity() {
 
 
         //When you click on the scores card, It will take you to All Scores screen
-        topCard.setOnClickListener{startActivity(Intent(this@RollActivity, MainActivity::class.java))}
+        topCard.setOnClickListener{startActivity(Intent(this@RollActivity, AllScoresActivity::class.java))}
 
         //When you click on the dice, it sets the selected dice, updates the dice button and current player score
         for (i in 1..6) {
@@ -155,6 +155,14 @@ class RollActivity : AppCompatActivity() {
 
     //saves the current player's info and loads next player
     private fun rollNext(){
+        //update global scores
+        globalVariable.nameToScore = this.nameToScore
+
+        //check if the game has ended and go to the final pot screen
+        if(currentPlayer == endingPlayer){
+            startActivity(Intent(this@RollActivity, WinScreenActivity::class.java))
+        }
+
         //save current player's info
         lastPlayer = currentPlayer
         lastPlayerLastScore = nameToScore[currentPlayer]!!
@@ -170,6 +178,11 @@ class RollActivity : AppCompatActivity() {
             namesArray[0]
         }
 
+        //check if the player surpassed 100 points, we will do one more turn and end the game at this player
+        if(currentPlayerNewScore > 100){
+            endingPlayer = currentPlayer
+        }
+
         currentPlayerNewScore = 0
         selectedLeftDice = 0
         selectedRightDice = 0
@@ -178,10 +191,14 @@ class RollActivity : AppCompatActivity() {
         updateScore()
         updateDiceButtonSelection(leftDiceButtons, -1)
         updateDiceButtonSelection(rightDiceButtons, -1)
+
+
     }
 
     //loads last player and erases their last roll
     private fun rollUndo(){
+        //What happens if I undo a winning (ending) player?  Need to deal with this case
+
         currentPlayer = lastPlayer
         nameToScore[currentPlayer] = lastPlayerLastScore
 

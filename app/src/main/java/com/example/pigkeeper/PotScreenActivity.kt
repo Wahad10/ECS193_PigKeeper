@@ -13,9 +13,11 @@ class PotScreenActivity : AppCompatActivity() {
 
         val globalVariable = GlobalData.instance
 
-        var playerNames = ArrayList<String>();
+        //var playerNames = ArrayList<String>();
 
-        var playerScores = globalVariable.score
+        var playerScores = globalVariable.nameToScore
+
+        /**var playerScores = globalVariable.score
 
         //If no score then just leave some default
         if (playerScores.size == 0) {
@@ -42,12 +44,12 @@ class PotScreenActivity : AppCompatActivity() {
         val potScores = mutableMapOf<String, Int>()
         for (i in playerNames.indices) {
             potScores[playerNames[i]] = playerScores[i]
-        }
+        }**/
 
         val textViewPotScores = findViewById<TextView>(R.id.textViewPotScores)
 
         val formattedScores = StringBuilder()
-        for ((player, score) in potScores) {
+        for ((player, score) in playerScores) {
             formattedScores.append("$player: $score\n")
         }
 
