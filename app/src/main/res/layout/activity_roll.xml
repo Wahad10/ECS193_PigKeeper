@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
             android:layout_marginTop="15dp"
-            android:text="Tap to View\n All Scores"
+            android:text="Tap to View\nAll Scores"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="16sp"

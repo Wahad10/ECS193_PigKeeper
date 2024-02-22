@@ -13,9 +13,11 @@ class LastPotActivity : AppCompatActivity() {
 
         val globalVariable = GlobalData.instance
 
-        var playerNames = ArrayList<String>();
+        //var playerNames = ArrayList<String>();
 
-        var playerScores = globalVariable.score
+        var playerScores = globalVariable.nameToScore
+
+        /**var playerScores = globalVariable.score
 
         //If no score then just leave some default
         if (playerScores.size == 0){
@@ -31,12 +33,12 @@ class LastPotActivity : AppCompatActivity() {
         val lastPotScores = mutableMapOf<String, Int>()
         for (i in playerNames.indices) {
             lastPotScores[playerNames[i]] = playerScores[i]
-        }
+        }**/
 
         val textViewLastPotScores = findViewById<TextView>(R.id.textViewLastPotScores)
 
         val formattedScores = StringBuilder()
-        for ((player, score) in lastPotScores) {
+        for ((player, score) in playerScores) {
             formattedScores.append("$player: $score\n")
         }
 
