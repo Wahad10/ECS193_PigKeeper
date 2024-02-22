@@ -33,9 +33,11 @@
             android:exported="false"
             android:label="@string/title_activity_rules"
             android:theme="@style/Theme.PigKeeper" />
-        <activity android:name=".AllScoresActivity"
+        <activity
+            android:name=".AllScoresActivity"
             android:exported="false" />
-        <activity android:name=".PotScreenActivity"
+        <activity
+            android:name=".PotScreenActivity"
             android:exported="false" />
         <activity
             android:name=".AllScoresActivity"
