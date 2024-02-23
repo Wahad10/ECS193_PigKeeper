@@ -23,6 +23,7 @@ class RollActivity : AppCompatActivity() {
     private var selectedLeftDice: Int = 0
     private var selectedRightDice: Int = 0
     private var selectedBadRoll: Boolean = false
+    private var rolledOnce: Boolean = false
     private var currentPlayer: String = ""
     private var currentPlayerNewScore: Int = 0
     private var lastPlayer: String = ""
@@ -41,6 +42,7 @@ class RollActivity : AppCompatActivity() {
         setContentView(R.layout.activity_roll)
 
 
+//       //GLOBAL PLAYERS DOES NOT ACTUALLY HOLD PLAYERS THAT WERE SITTING OUT
         //only get the players that are in this round
         val players = globalVariable.players
         val sittingOut = globalVariable.sittingOut
@@ -53,6 +55,7 @@ class RollActivity : AppCompatActivity() {
 
         //hashmap holds player names and records their scores
         for (name in namesArray){
+            //may not want to reset all scores to 0 if we are resuming a game
             nameToScore[name] = 0
         }
         globalVariable.nameToScore = this.nameToScore
@@ -73,7 +76,7 @@ class RollActivity : AppCompatActivity() {
             findViewById(R.id.imageButtonL6)
         )
 
-         rightDiceButtons = listOf<ImageButton>(
+        rightDiceButtons = listOf<ImageButton>(
             findViewById(R.id.imageButtonR1),
             findViewById(R.id.imageButtonR2),
             findViewById(R.id.imageButtonR3),
@@ -112,7 +115,10 @@ class RollActivity : AppCompatActivity() {
 
         //When you click next roll it saves the current player's score and loads next player
         nextRoll.setOnClickListener {
-            rollNext()
+            if(selectedLeftDice > 0 && selectedRightDice > 0
+                && rolledOnce){
+                rollNext()
+            }
         }
 
         //When you click undo roll it loads last player and erases their last roll
@@ -121,11 +127,12 @@ class RollActivity : AppCompatActivity() {
         }
     }
 
-    //need to make this function change the dice buttons somehow, maybe highlight them?
+
+    //   //need to make this function change the dice buttons somehow, maybe highlight them?
     //right now just changing color of whole image to yellow
     private fun updateDiceButtonSelection(buttons: List<ImageButton>, selectedDice: Int) {
         /**for (button in buttons) {
-            button.isPressed = false
+        button.isPressed = false
         }
         buttons[selectedDice - 1].isPressed = true*/
 
@@ -138,12 +145,15 @@ class RollActivity : AppCompatActivity() {
         }
     }
 
+
     //main logic function to calculate the players score based on the two dice
     private fun updateScore() {
         var selectedScore = selectedLeftDice + selectedRightDice
         currentPlayerNewScore = nameToScore[currentPlayer]!! + selectedScore
 
-        //need to implement special rule cases here
+
+//       //need to implement special rule cases here
+
 
         textYourScore.text = "YOUR SCORE:\n$currentPlayer: $currentPlayerNewScore"
 
@@ -152,6 +162,7 @@ class RollActivity : AppCompatActivity() {
         val topPlayer = nameToScore.entries.firstOrNull { it.value == topScore }?.key
         textTopScore.text = "TOP SCORE:\n$topPlayer: $topScore"
     }
+
 
     //saves the current player's info and loads next player
     private fun rollNext(){
@@ -178,6 +189,7 @@ class RollActivity : AppCompatActivity() {
             namesArray[0]
         }
 
+//       //NOT WORKING CORRECTLY NEED TO MODIFY
         //check if the player surpassed 100 points, we will do one more turn and end the game at this player
         if(currentPlayerNewScore > 100){
             endingPlayer = currentPlayer
@@ -187,13 +199,13 @@ class RollActivity : AppCompatActivity() {
         selectedLeftDice = 0
         selectedRightDice = 0
         selectedBadRoll = false
+        rolledOnce = true
 
         updateScore()
         updateDiceButtonSelection(leftDiceButtons, -1)
         updateDiceButtonSelection(rightDiceButtons, -1)
-
-
     }
+
 
     //loads last player and erases their last roll
     private fun rollUndo(){
