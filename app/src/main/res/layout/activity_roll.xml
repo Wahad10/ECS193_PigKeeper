@@ -90,11 +90,27 @@
                 android:layout_marginEnd="78dp"
                 app:srcCompat="@mipmap/undo_foreground" />
 
+
             <ImageButton
                 android:id="@+id/imageButtonNextRoll"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                app:srcCompat="@mipmap/check_foreground" />
+                app:layout_constraintTop_toTopOf="@+id/imageButtonNextPlayer"
+                app:layout_constraintStart_toStartOf="@+id/imageButtonNextPlayer"
+                app:layout_constraintEnd_toEndOf="@+id/imageButtonNextPlayer"
+                app:srcCompat="@mipmap/check_foreground"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/imageButtonNextPlayer"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardBottom"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@mipmap/nextplayer_foreground"
+                android:visibility="gone" />
+
 
         </LinearLayout>
 

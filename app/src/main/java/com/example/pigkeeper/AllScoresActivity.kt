@@ -11,35 +11,13 @@ class AllScoresActivity : AppCompatActivity() {
         setContentView(R.layout.activity_all_scores)
 
         val globalVariable = GlobalData.instance
-
-        //var playerNames = ArrayList<String>()
-
         var playerScores = globalVariable.nameToScore
 
-        /**var playerScores = globalVariable.score
-
-        //If no score then just leave some default
-        if (playerScores.size == 0){
-            playerNames.addAll(arrayOf("Player 1", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6", "Player 7", "Player 8", "Player 9", "Player 10"))
-            playerScores = ArrayList<Int>(0)
-            repeat(playerNames.size){playerScores.add(0)}
-        }
-        else{
-            playerNames = globalVariable.players
-        }
-
-        val allScores = mutableMapOf<String, Int>()
-        for (i in playerNames.indices) {
-            allScores[playerNames[i]] = playerScores[i]
-        }**/
-
         val textViewAllScores = findViewById<TextView>(R.id.textViewAllScores)
-
         val formattedScores = StringBuilder()
         for ((player, score) in playerScores) {
             formattedScores.append("$player: $score\n")
         }
-
         textViewAllScores.text = formattedScores.toString()
 
         val buttonBack = findViewById<Button>(R.id.buttonAllScoresBack)

@@ -12,58 +12,38 @@ class PotScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pot_screen)
 
         val globalVariable = GlobalData.instance
-
-        //var playerNames = ArrayList<String>();
-
         var playerScores = globalVariable.nameToScore
+        var playerPots = globalVariable.nameToPot
 
-        /**var playerScores = globalVariable.score
 
-        //If no score then just leave some default
-        if (playerScores.size == 0) {
-            playerNames.addAll(
-                arrayOf(
-                    "Player 1",
-                    "Player 2",
-                    "Player 3",
-                    "Player 4",
-                    "Player 5",
-                    "Player 6",
-                    "Player 7",
-                    "Player 8",
-                    "Player 9",
-                    "Player 10"
-                )
-            )
-            playerScores = ArrayList<Int>(0)
-            repeat(playerNames.size) { playerScores.add(0) }
-        } else {
-            playerNames = globalVariable.players
-        }
-
-        val potScores = mutableMapOf<String, Int>()
-        for (i in playerNames.indices) {
-            potScores[playerNames[i]] = playerScores[i]
-        }**/
-
-        val textViewPotScores = findViewById<TextView>(R.id.textViewPotScores)
-
+        //SHOW POT
         val formattedScores = StringBuilder()
-        for ((player, score) in playerScores) {
-            formattedScores.append("$player: $score\n")
+        for ((player, pot) in playerPots) {
+            formattedScores.append("$player: $pot\n")
         }
-
+        val textViewPotScores = findViewById<TextView>(R.id.textViewPotScores)
         textViewPotScores.text = formattedScores.toString()
+
+        //SHOW ROUND SCORES
+        val formattedScores2 = StringBuilder()
+        for ((player, score) in playerScores) {
+            formattedScores2.append("$player: $score\n")
+        }
+        val textViewRoundScores = findViewById<TextView>(R.id.textViewRoundScores)
+        textViewRoundScores.text = formattedScores2.toString()
+
 
         val buttonEndGame = findViewById<Button>(R.id.buttonEndGame)
         buttonEndGame.setOnClickListener {
+            globalVariable.nameToScore.clear()
+            globalVariable.endedGameSession = true
             startActivity(Intent(this@PotScreenActivity, MainActivity::class.java))
         }
 
         val buttonNext = findViewById<Button>(R.id.buttonNext)
         buttonNext.setOnClickListener {
+            globalVariable.nameToScore.clear()
             startActivity(Intent(this@PotScreenActivity, NewPlayersActivity::class.java))
         }
-
     }
 }
