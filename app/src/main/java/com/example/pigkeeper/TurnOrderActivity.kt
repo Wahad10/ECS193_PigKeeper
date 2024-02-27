@@ -37,7 +37,9 @@ class TurnOrderActivity : AppCompatActivity() {
 
         globalVariable = GlobalData.instance
 
+
         players = globalVariable.players
+
 
         setContentView(R.layout.activity_turn_order)
 
@@ -101,6 +103,11 @@ class TurnOrderActivity : AppCompatActivity() {
                 sittingOut.put(players[id],false)
                 button.id = id+5 //first few are already taken up
                 button.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY))
+
+                //automatically set winning player as 1st in turn order but changeable
+                if(globalVariable.endedGameRound && globalVariable.endingPlayer == players[id]){
+                    setOrder(button)
+                }
 
                 button.setOnClickListener{
                     if(sitOut){ setSitOut(button) }
