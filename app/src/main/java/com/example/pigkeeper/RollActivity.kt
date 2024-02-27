@@ -1,17 +1,14 @@
 package com.example.pigkeeper
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 
 class RollActivity : AppCompatActivity() {
@@ -43,6 +40,7 @@ class RollActivity : AppCompatActivity() {
     private var previousPlayerLastRollWasDouble: Boolean = false
     private var previousPlayerConsecutiveDoubleRolls: Int = 0
     private var lastLastRollWasDouble: Boolean = false
+    private var textConsequenceBuilder = StringBuilder()
     //END NEW
 
     private var currentPlayer: String = ""
@@ -57,6 +55,7 @@ class RollActivity : AppCompatActivity() {
     private var endingPlayer: String = ""
 
     //Items from layout that need to be passed to other functions
+    private lateinit var textConsequence: TextView
     private lateinit var textYourScore: TextView
     private lateinit var textTopScore: TextView
     private lateinit var leftDiceButtons: List<ImageButton>
@@ -90,6 +89,7 @@ class RollActivity : AppCompatActivity() {
 
 
         //Get all items from layout
+        textConsequence = findViewById<TextView>(R.id.textConsequence)
         textYourScore = findViewById<TextView>(R.id.textYourScore)
         textTopScore = findViewById<TextView>(R.id.textTopScore)
         val topCard = findViewById<CardView>(R.id.cardTop)
@@ -118,6 +118,10 @@ class RollActivity : AppCompatActivity() {
         // Initially hide both next buttons and undo button
         hideNextButtons()
         undoRollButton.visibility = View.INVISIBLE
+        // Initially show that player must roll at least once
+        if(!rolledOnce){
+            addTextConsequence("| MUST ROLL ONCE |")
+        }
 
 
         //THIS CODE BLOCK KEEPS DATA ALIVE
@@ -284,10 +288,26 @@ class RollActivity : AppCompatActivity() {
         nextPlayerButton.visibility = View.GONE
     }
 
+    private fun addTextConsequence(consequence: String){
+        textConsequenceBuilder.append(consequence)
+        textConsequence.setText(textConsequenceBuilder)
+        textConsequence.setVisibility(View.VISIBLE);
+    }
+
+    private fun hideTextConsequence(){
+        textConsequenceBuilder.setLength(0)
+        textConsequence.setVisibility(View.GONE);
+
+        if(!rolledOnce){
+            addTextConsequence("| MUST ROLL ONCE |")
+        }
+    }
+
     //when unselecting a dice, it will show the roll start score
     private fun showRollStartScore(){
         currentPlayerNewScore = currentPlayerRollStartScore
         showScoreText()
+        hideTextConsequence()
     }
 
     //main logic function to calculate the players score based on the two dice
@@ -301,6 +321,8 @@ class RollActivity : AppCompatActivity() {
         //HERE, MOVED IF AGAIN TO ROLLNEXT
         lastRollWasDouble = false
         lastLastRollWasDouble = false
+        //reset text Consequence
+        //hideTextConsequence()
 
 
 //       //need to implement special rule cases here
@@ -354,23 +376,28 @@ class RollActivity : AppCompatActivity() {
 
     private fun doublePoints(){
         currentPlayerNewScore = nameToScore[currentPlayer]!! + (2*selectedScore)
+        addTextConsequence("| DOUBLE POINTS |")
     }
 
     //this not right, IS RIGHT NOW (complicated undo function)
     private fun loseTurn(){
         mustNextPlayer = true
+        addTextConsequence("| LOSE TURN |")
     }
 
     private fun mustRollAgain(){
         mustNextRoll = true
+        addTextConsequence("| MUST ROLL AGAIN |")
     }
 
     private fun resetScoreToLastTurn(){
         currentPlayerNewScore = currentPlayerLastTurnScore
+        addTextConsequence("| RESET TURN SCORE |")
     }
 
     private fun resetScoreToZero(){
         currentPlayerNewScore = 0
+        addTextConsequence("| RESET SCORE TO 0 |")
     }
 
     private fun showScoreText(){
@@ -424,6 +451,13 @@ class RollActivity : AppCompatActivity() {
         }
         //lastLastRollWasDouble = lastRollWasDouble
         resetVariables()
+        //get rid of roll once text
+        if(wasFirstRoll){
+            val index: Int = textConsequenceBuilder.indexOf("| MUST ROLL ONCE |")
+            textConsequenceBuilder.delete(index, index + "| MUST ROLL ONCE |".length)
+            textConsequence.setText(textConsequenceBuilder)
+            textConsequence.setVisibility(View.VISIBLE)
+        }
     }
 
     //saves the current player's info and loads next player
@@ -478,6 +512,7 @@ class RollActivity : AppCompatActivity() {
         lastRollWasDouble = false
         consecutiveDoubleRolls = 0
         resetVariables()
+        hideTextConsequence()
     }
 
     //FOR NOW only undo once (the last action)
@@ -511,6 +546,7 @@ class RollActivity : AppCompatActivity() {
                 }
                 //disableDiceSelect = false
                 resetVariables()
+                hideTextConsequence()
 
             //if current player has rolled once
             } else if(rolledOnce){
@@ -555,6 +591,7 @@ class RollActivity : AppCompatActivity() {
                 currentPlayerRollStartScore = nameToScore[currentPlayer]!!
                 disableDiceSelect = false
                 resetVariables()
+                hideTextConsequence()
             }
 
             /**if(lastRollWasMustNextRoll){
@@ -587,6 +624,7 @@ class RollActivity : AppCompatActivity() {
         showScoreText()
         updateDiceButtonSelection(leftDiceButtons, -1)
         updateDiceButtonSelection(rightDiceButtons, -1)
+        //hideTextConsequence() I dont want roll next to reset the text
     }
 
     private fun updatePot(){
@@ -655,6 +693,7 @@ class RollActivity : AppCompatActivity() {
         globalVariable.previousPlayerLastRollWasDouble = this.previousPlayerLastRollWasDouble
         globalVariable.previousPlayerConsecutiveDoubleRolls = this.previousPlayerConsecutiveDoubleRolls
         globalVariable.lastLastRollWasDouble = this.lastLastRollWasDouble
+        globalVariable.textConsequenceBuilder = this.textConsequenceBuilder
 
         //save scores to global vars
         globalVariable.nameToScore = this.nameToScore
@@ -689,6 +728,7 @@ class RollActivity : AppCompatActivity() {
         this.previousPlayerLastRollWasDouble = globalVariable.previousPlayerLastRollWasDouble
         this.previousPlayerConsecutiveDoubleRolls = globalVariable.previousPlayerConsecutiveDoubleRolls
         this.lastLastRollWasDouble = globalVariable.lastLastRollWasDouble
+        this.textConsequenceBuilder = globalVariable.textConsequenceBuilder
 
         //restore scores from global vars
         this.nameToScore = globalVariable.nameToScore
@@ -697,6 +737,12 @@ class RollActivity : AppCompatActivity() {
         showScoreText()
         if(rolledOnce){
             showNextPlayerButton()
+        }
+        if(textConsequenceBuilder.length > 0){
+            Log.d("me", rolledOnce.toString())
+            Log.d("me", textConsequenceBuilder.toString())
+            textConsequence.setText(textConsequenceBuilder)
+            textConsequence.setVisibility(View.VISIBLE);
         }
     }
 }
