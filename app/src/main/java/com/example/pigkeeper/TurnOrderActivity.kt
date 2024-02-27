@@ -46,8 +46,8 @@ class TurnOrderActivity : AppCompatActivity() {
             else{ buttonSitOut.text = "Sit Out" }
         }
 
-        message1 = findViewById<TextView>(R.id.Message3)
-        message2 = findViewById<TextView>(R.id.Message3)
+        message1 = findViewById<TextView>(R.id.Message1)
+        message2 = findViewById<TextView>(R.id.Message2)
         message3 = findViewById<TextView>(R.id.Message3)
 
         val buttonStart = findViewById<Button>(R.id.buttonStart)
