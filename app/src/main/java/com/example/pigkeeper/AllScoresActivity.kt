@@ -6,11 +6,12 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 class AllScoresActivity : AppCompatActivity() {
+    lateinit var globalVariable : GlobalData
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_scores)
 
-        val globalVariable = GlobalData.instance
+        globalVariable = GlobalData.instance
         var playerScores = globalVariable.nameToScore
 
         val textViewAllScores = findViewById<TextView>(R.id.textViewAllScores)
@@ -24,4 +25,8 @@ class AllScoresActivity : AppCompatActivity() {
         buttonBack.setOnClickListener{startActivity(Intent(this@AllScoresActivity, RollActivity::class.java))}
     }
 
+    override fun onPause() {
+        super.onPause()
+        globalVariable.saveData()
+    }
 }

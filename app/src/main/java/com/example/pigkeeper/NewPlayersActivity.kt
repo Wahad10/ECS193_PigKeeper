@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class NewPlayersActivity : AppCompatActivity() {
     //data that needs to be passed to other functions
-    val globalVariable = GlobalData.instance
+    lateinit var globalVariable : GlobalData
     private lateinit var textViewPlayers : TextView
     private var namesArray = ArrayList<String>()
     private val playersEntered = StringBuilder()
@@ -18,6 +18,8 @@ class NewPlayersActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_players)
+
+        globalVariable = GlobalData.instance
 
         textViewPlayers = findViewById<TextView>(R.id.textViewPlayers)
         val inputName = findViewById<EditText>(R.id.inputName)
@@ -51,6 +53,8 @@ class NewPlayersActivity : AppCompatActivity() {
     }
 
     private fun loadLastPlayers(){
+        //DO I WANT TO BE ABLE TO LOAD LAST PLAEYRS IF CLOSE APP MID FIRST ROUND?
+        //CURRENTLY CAN ONLY LOAD LAST PLAYERS IF I FINISHED AT LEAST ONE ROUND ALL THE WAY WITH THEM
         //If there was a previous game, get the players
         if(globalVariable.nameToPot.size !=0){
             //to load all last players, even the ones sitting out
@@ -62,5 +66,10 @@ class NewPlayersActivity : AppCompatActivity() {
             }
             textViewPlayers.text = playersEntered.toString()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        globalVariable.saveData()
     }
 }

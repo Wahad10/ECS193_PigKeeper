@@ -26,13 +26,16 @@ class TurnOrderActivity : AppCompatActivity() {
     var order = ArrayList<String>()
     lateinit var buttonSitOut : Button
 
-    val globalVariable = GlobalData.instance
+    lateinit var globalVariable : GlobalData
     lateinit var message1 : TextView
     lateinit var message2 : TextView
     lateinit var message3 : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        globalVariable = GlobalData.instance
 
         players = globalVariable.players
 
@@ -152,5 +155,10 @@ class TurnOrderActivity : AppCompatActivity() {
             sittingOut[button.tag as String] = false
             sittingOutSize-=1
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        globalVariable.saveData()
     }
 }
