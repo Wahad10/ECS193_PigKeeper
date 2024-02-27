@@ -104,8 +104,8 @@ class TurnOrderActivity : AppCompatActivity() {
                 button.id = id+5 //first few are already taken up
                 button.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY))
 
-                //automatically set winning player as 1st in turn order but changeable
-                if(globalVariable.endedGameRound && globalVariable.endingPlayer == players[id]){
+                //automatically set last round winning player as 1st in turn order but changeable
+                if(!globalVariable.endedGameSession && globalVariable.endedGameRound && globalVariable.endingPlayer == players[id]){
                     setOrder(button)
                 }
 

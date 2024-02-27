@@ -614,6 +614,10 @@ class RollActivity : AppCompatActivity() {
         for (player in namesArray){
             if(player != endingPlayer){
                 var playerDebt = winningScore - nameToScore[player]!!
+                //GET SKUNKED
+                if(nameToScore[player]!! == 0){
+                    playerDebt *= 2
+                }
                 totalDebt += playerDebt
                 nameToPot[player] = nameToPot[player]!! - playerDebt
             }
