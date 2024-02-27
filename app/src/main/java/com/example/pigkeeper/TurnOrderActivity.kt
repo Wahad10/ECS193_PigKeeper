@@ -129,8 +129,6 @@ class TurnOrderActivity : AppCompatActivity() {
         message3.visibility = View.INVISIBLE
         order.add(button.tag as String)
         button.text = "${order.size} ${button.tag}"
-
-        Log.d("Order",order.toString())
     }
 
     //Toggles person's sitting out status. Will also change the color of button
