@@ -7,11 +7,13 @@ import android.widget.Button
 import android.widget.TextView
 
 class WinScreenActivity : AppCompatActivity() {
+    lateinit var globalVariable : GlobalData
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_win_screen)
 
-        val globalVariable = GlobalData.instance
+
+        globalVariable = GlobalData.instance
 
         val textWinner = findViewById<TextView>(R.id.textWinner)
         //update top score
@@ -22,5 +24,10 @@ class WinScreenActivity : AppCompatActivity() {
         val buttonPot = findViewById<Button>(R.id.buttonPot)
         buttonPot.setOnClickListener{startActivity(Intent(this@WinScreenActivity, PotScreenActivity::class.java))}
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        globalVariable.saveData()
     }
 }
