@@ -13,14 +13,24 @@
         android:layout_marginStart="108dp"
         android:layout_marginBottom="32dp"
         android:text="Consequences"
-        app:layout_constraintBottom_toTopOf="@+id/buttonDoublePoints"
+        app:layout_constraintBottom_toTopOf="@+id/buttonResetScoreTo0"
         app:layout_constraintStart_toStartOf="@+id/textRules" />
 
     <Button
-        android:id="@+id/buttonNoEffect"
+        android:id="@+id/buttonResetScoreTo0"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="No Effect"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="84dp"
+        android:text="Reset Score to 0"
+        app:layout_constraintStart_toStartOf="@+id/textRules"
+        app:layout_constraintTop_toBottomOf="@+id/textRules" />
+
+    <Button
+        android:id="@+id/buttonResetTurnScore"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Reset Turn Score"
         app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
         app:layout_constraintTop_toBottomOf="@+id/buttonResetScoreTo0" />
 
@@ -28,26 +38,32 @@
         android:id="@+id/buttonDoublePoints"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="84dp"
         android:text="2x Points"
-        app:layout_constraintStart_toStartOf="@+id/textRules"
-        app:layout_constraintTop_toBottomOf="@+id/textRules" />
-
-    <Button
-        android:id="@+id/buttonResetScoreTo0"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Reset Score to 0"
-        app:layout_constraintStart_toStartOf="@+id/buttonResetTurnScore"
+        app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
         app:layout_constraintTop_toBottomOf="@+id/buttonResetTurnScore" />
 
     <Button
-        android:id="@+id/buttonResetTurnScore"
+        android:id="@+id/buttonLoseTurn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Reset Turn Score"
-        app:layout_constraintStart_toStartOf="@+id/buttonMustRollAgain"
+        android:text="Lose Turn"
+        app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDoublePoints" />
+
+    <Button
+        android:id="@+id/buttonMustRollAgain"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Must Roll Again"
+        app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoseTurn" />
+
+    <Button
+        android:id="@+id/buttonNoEffect"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="No Effect"
+        app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
         app:layout_constraintTop_toBottomOf="@+id/buttonMustRollAgain" />
 
     <Button
@@ -120,22 +136,6 @@
         android:text="Snake Eyes"
         app:layout_constraintEnd_toEndOf="@+id/buttonRoll7"
         app:layout_constraintTop_toBottomOf="@+id/buttonRoll7" />
-
-    <Button
-        android:id="@+id/buttonLoseTurn"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Lose Turn"
-        app:layout_constraintStart_toStartOf="@+id/buttonDoublePoints"
-        app:layout_constraintTop_toBottomOf="@+id/buttonDoublePoints" />
-
-    <Button
-        android:id="@+id/buttonMustRollAgain"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Must Roll Again"
-        app:layout_constraintStart_toStartOf="@+id/buttonLoseTurn"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLoseTurn" />
 
     <Button
         android:id="@+id/buttonBack"
