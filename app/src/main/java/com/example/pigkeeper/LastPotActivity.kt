@@ -7,11 +7,13 @@ import android.widget.Button
 import android.widget.TextView
 
 class LastPotActivity : AppCompatActivity() {
+    lateinit var globalVariable : GlobalData
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_last_pot)
 
-        val globalVariable = GlobalData.instance
+
+        globalVariable = GlobalData.instance
         var playerPot = globalVariable.nameToPot
 
         val textViewLastPotScores = findViewById<TextView>(R.id.textViewLastPotScores)
@@ -23,5 +25,10 @@ class LastPotActivity : AppCompatActivity() {
 
         val buttonBack = findViewById<Button>(R.id.buttonLastPotBack)
         buttonBack.setOnClickListener{startActivity(Intent(this@LastPotActivity, MainActivity::class.java))}
+    }
+
+    override fun onPause() {
+        super.onPause()
+        globalVariable.saveData()
     }
 }

@@ -15,6 +15,7 @@ import kotlin.Error
 
 class RulesActivity : AppCompatActivity() {
 
+
     var specialTurnCaseSelected = false; //if any special turn case button is selected, return True
 
     enum class Consequence {
@@ -35,11 +36,16 @@ class RulesActivity : AppCompatActivity() {
         OFF_TABLE(listOf(Consequence.LOSE_TURN))
     }
 
+
+    lateinit var globalVariable : GlobalData
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rules)
 
-        var globalVariable = GlobalData.instance
+
+        globalVariable = GlobalData.instance
+
         //Save rules to globalData
 
         //Back button, returns to Main Menu Screen
@@ -357,8 +363,16 @@ class RulesActivity : AppCompatActivity() {
 
     }
 
+
     fun onSpecialTurnCaseClick(view: View) {
         specialTurnCaseSelected = !specialTurnCaseSelected
+    }
+
+
+
+    override fun onPause() {
+        super.onPause()
+        globalVariable.saveData()
     }
 
 }
