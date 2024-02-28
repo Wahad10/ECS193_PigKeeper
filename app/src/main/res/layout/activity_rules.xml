@@ -7,6 +7,98 @@
     tools:context=".RulesActivity">
 
     <TextView
+        android:id="@+id/textConsequences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginBottom="32dp"
+        android:text="Consequences"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDoublePoints"
+        app:layout_constraintStart_toStartOf="@+id/textRules" />
+
+    <Button
+        android:id="@+id/buttonNoEffect"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="No Effect"
+        app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
+        app:layout_constraintTop_toBottomOf="@+id/buttonResetScoreTo0" />
+
+    <Button
+        android:id="@+id/buttonDoublePoints"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="84dp"
+        android:text="2x Points"
+        app:layout_constraintStart_toStartOf="@+id/textRules"
+        app:layout_constraintTop_toBottomOf="@+id/textRules" />
+
+    <Button
+        android:id="@+id/buttonResetScoreTo0"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Reset Score to 0"
+        app:layout_constraintStart_toStartOf="@+id/buttonResetTurnScore"
+        app:layout_constraintTop_toBottomOf="@+id/buttonResetTurnScore" />
+
+    <Button
+        android:id="@+id/buttonResetTurnScore"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Reset Turn Score"
+        app:layout_constraintStart_toStartOf="@+id/buttonMustRollAgain"
+        app:layout_constraintTop_toBottomOf="@+id/buttonMustRollAgain" />
+
+    <Button
+        android:id="@+id/button3xDoubles"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:onClick="onSpecialTurnCaseClick"
+        android:text="3x Doubles"
+        app:layout_constraintEnd_toEndOf="@+id/buttonDouble"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDouble" />
+
+    <Button
+        android:id="@+id/buttonRoll7"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="84dp"
+        android:onClick="onSpecialTurnCaseClick"
+        android:text="Roll 7"
+        app:layout_constraintEnd_toEndOf="@+id/textRules"
+        app:layout_constraintTop_toBottomOf="@+id/textRules" />
+
+    <Button
+        android:id="@+id/buttonOffTable"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:onClick="onSpecialTurnCaseClick"
+        android:text="Off Table"
+        app:layout_constraintEnd_toEndOf="@+id/button3xDoubles"
+        app:layout_constraintTop_toBottomOf="@+id/button3xDoubles" />
+
+    <Button
+        android:id="@+id/buttonDouble"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:onClick="onSpecialTurnCaseClick"
+        android:text="Double"
+        app:layout_constraintEnd_toEndOf="@+id/buttonBoxCars"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBoxCars" />
+
+    <Button
+        android:id="@+id/buttonBoxCars"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:onClick="onSpecialTurnCaseClick"
+        android:text="Box Cars"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSnakeEyes"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSnakeEyes" />
+
+    <TextView
         android:id="@+id/textRules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,8 +107,57 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.191" />
+
+    <Button
+        android:id="@+id/buttonSnakeEyes"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:onClick="onSpecialTurnCaseClick"
+        android:text="Snake Eyes"
+        app:layout_constraintEnd_toEndOf="@+id/buttonRoll7"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRoll7" />
+
+    <Button
+        android:id="@+id/buttonLoseTurn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Lose Turn"
+        app:layout_constraintStart_toStartOf="@+id/buttonDoublePoints"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDoublePoints" />
+
+    <Button
+        android:id="@+id/buttonMustRollAgain"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Must Roll Again"
+        app:layout_constraintStart_toStartOf="@+id/buttonLoseTurn"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoseTurn" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textRules"
+        app:layout_constraintVertical_bias="0.79" />
+
+    <TextView
+        android:id="@+id/textSpecialTurnCases"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="32dp"
+        android:text="Special Turn Cases"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRoll7"
+        app:layout_constraintEnd_toEndOf="@+id/textRules" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
