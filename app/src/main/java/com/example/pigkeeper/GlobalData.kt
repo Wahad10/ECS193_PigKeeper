@@ -42,8 +42,9 @@ class GlobalData: Application() {
     var lastLastRollWasDouble: Boolean = false
     var textConsequenceBuilder = StringBuilder()
     //NEW Roll Screen Variables
-    lateinit var currentSpecialRuleCase: RulesActivity.SpecialRuleCase
-    lateinit var currentSpecialRuleConsequences: MutableList<RulesActivity.Consequence>
+    //have to initialize this to something initially
+    var currentSpecialRuleCase = RulesActivity.SpecialRuleCase.ROLL_7
+    var currentSpecialRuleConsequences: MutableList<RulesActivity.Consequence> = mutableListOf()
 
 
     //Add rules here, idk what data structure you want
@@ -143,6 +144,15 @@ class GlobalData: Application() {
             val type = object : TypeToken<MutableMap<RulesActivity.SpecialRuleCase, MutableList<RulesActivity.Consequence>>>() {}.type
             rulesMap = Gson().fromJson(jsonString, type)
         }
+        //get the currentRuleCase and consequence back similar way
+        val jsonString2 = sharedPreferences.getString("currentSpecialRuleCase", "")
+        if (jsonString2 != null && jsonString2.isNotEmpty()) {
+            currentSpecialRuleCase = Gson().fromJson(jsonString2, RulesActivity.SpecialRuleCase::class.java)
+        }
+        val jsonString3 = sharedPreferences.getString("currentSpecialRuleConsequences", "")
+        if (jsonString3 != null && jsonString3.isNotEmpty()) {
+            currentSpecialRuleConsequences = Gson().fromJson(jsonString3, object : TypeToken<MutableList<RulesActivity.Consequence>>() {}.type)
+        }
     }
 
     fun saveData() {
@@ -203,6 +213,12 @@ class GlobalData: Application() {
         //Use GSON to save rulesMap as a string to Shared Preferences
         val jsonString = Gson().toJson(rulesMap)
         editor.putString("rulesMap", jsonString)
+
+        //Use GSON to save currentRuleCase and Consequence as a string to Shared Preferences
+        val jsonString2 = Gson().toJson(currentSpecialRuleCase)
+        editor.putString("currentSpecialRuleCase", jsonString2)
+        val jsonString3 = Gson().toJson(currentSpecialRuleConsequences)
+        editor.putString("currentSpecialRuleConsequences", jsonString3)
 
         editor.apply()
     }

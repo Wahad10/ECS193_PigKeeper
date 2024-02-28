@@ -347,8 +347,21 @@ class RollActivity : AppCompatActivity() {
         }
         //DOUBLES
         if(selectedLeftDice == selectedRightDice){
+            //MOVED IF ABOVE, CALC IF 3 DOUBLES
+            //lastRollWasDouble = true
+            //consecutiveDoubleRolls += 1 UPDATING THIS TOO EARLY DO IT IN ROLLNEXT
+            //if(consecutiveDoubleRolls > 1){
+            //    lastLastRollWasDouble = true
+            //}
+            //3 DOUBLES IN A ROW
+            if(consecutiveDoubleRolls == 2) {//2 consecutive doubles alr, this the third one
+                //resetScoreToZero()
+                //loseTurn()
+                currentSpecialRuleCase = RulesActivity.SpecialRuleCase.TRIPLE_DOUBLE
+                currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                mapRuleConsequencesToFunctions()
             //SNAKE EYES
-            if(selectedScore == 2) {
+            }else if(selectedScore == 2) {
                 //resetScoreToZero()
                 //loseTurn()
                 currentSpecialRuleCase = RulesActivity.SpecialRuleCase.SNAKE_EYES
@@ -361,26 +374,11 @@ class RollActivity : AppCompatActivity() {
                 mapRuleConsequencesToFunctions()
             //ALL OTHER DOUBLES
             }else if (selectedScore != 0){
-                //MOVED IF ABOVE
-                lastRollWasDouble = true
-                consecutiveDoubleRolls += 1
-                if(consecutiveDoubleRolls > 1){
-                    lastLastRollWasDouble = true
-                }
-                //3 DOUBLES IN A ROW
-                if(consecutiveDoubleRolls == 3){
-                    //resetScoreToZero()
-                    //loseTurn()
-                    currentSpecialRuleCase = RulesActivity.SpecialRuleCase.TRIPLE_DOUBLE
-                    currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
-                    mapRuleConsequencesToFunctions()
-                }else{
-                    //doublePoints()
-                    //mustRollAgain()
-                    currentSpecialRuleCase = RulesActivity.SpecialRuleCase.DOUBLE
-                    currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
-                    mapRuleConsequencesToFunctions()
-                }
+                //doublePoints()
+                //mustRollAgain()
+                currentSpecialRuleCase = RulesActivity.SpecialRuleCase.DOUBLE
+                currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                mapRuleConsequencesToFunctions()
             }
         }
         //ROLL 7
@@ -409,17 +407,17 @@ class RollActivity : AppCompatActivity() {
         if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.DOUBLE_POINTS)){
             doublePoints()
         }
-        if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.LOSE_TURN)){
-            loseTurn()
-        }
-        if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.MUST_ROLL_AGAIN)){
-            mustRollAgain()
-        }
         if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.RESET_TURN_SCORE)){
             resetScoreToLastTurn()
         }
         if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.RESET_SCORE_TO_ZERO)){
             resetScoreToZero()
+        }
+        if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.LOSE_TURN)){
+            loseTurn()
+        }
+        if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.MUST_ROLL_AGAIN)){
+            mustRollAgain()
         }
 
         //this is actually changing the rulesMap itself i think
@@ -498,6 +496,15 @@ class RollActivity : AppCompatActivity() {
             //mustNextPlayer = false
         }
         toggledBadRoll = false
+        //DOUBLES
+        if(selectedLeftDice == selectedRightDice) {
+            //MOVED IF ABOVE, CALC IF 3 DOUBLES
+            lastRollWasDouble = true
+            consecutiveDoubleRolls += 1
+            if (consecutiveDoubleRolls > 1) {
+                lastLastRollWasDouble = true
+            }
+        }
         if(!lastRollWasDouble){
             consecutiveDoubleRolls = 0
         }
