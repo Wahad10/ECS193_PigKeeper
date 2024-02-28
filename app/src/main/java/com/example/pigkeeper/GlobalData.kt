@@ -41,6 +41,8 @@ class GlobalData: Application() {
     var previousPlayerConsecutiveDoubleRolls: Int = 0
     var lastLastRollWasDouble: Boolean = false
     var textConsequenceBuilder = StringBuilder()
+    var previousTextConsequence: String = ""
+    var previousPreviousTextConsequence: String = ""
     //NEW Roll Screen Variables
     //have to initialize this to something initially
     var currentSpecialRuleCase = RulesActivity.SpecialRuleCase.ROLL_7
@@ -136,7 +138,8 @@ class GlobalData: Application() {
         previousPlayerConsecutiveDoubleRolls = sharedPreferences.getInt("previousPlayerConsecutiveDoubleRolls", 0)
         lastLastRollWasDouble = sharedPreferences.getBoolean("lastLastRollWasDouble", false)
         textConsequenceBuilder = StringBuilder(sharedPreferences.getString("textConsequenceBuilder", ""))
-
+        previousTextConsequence = sharedPreferences.getString("previousTextConsequence", "") ?: ""
+        previousPreviousTextConsequence = sharedPreferences.getString("previousPreviousTextConsequence", "") ?: ""
 
         //get the rules Map back from the JSON String if it is not empty (we had saved a rules Map before)
         val jsonString = sharedPreferences.getString("rulesMap", "")
@@ -209,6 +212,9 @@ class GlobalData: Application() {
         editor.putInt("previousPlayerConsecutiveDoubleRolls", previousPlayerConsecutiveDoubleRolls)
         editor.putBoolean("lastLastRollWasDouble", lastLastRollWasDouble)
         editor.putString("textConsequenceBuilder", textConsequenceBuilder.toString())
+        editor.putString("previousTextConsequence", previousTextConsequence)
+        editor.putString("previousPreviousTextConsequence", previousPreviousTextConsequence)
+
 
         //Use GSON to save rulesMap as a string to Shared Preferences
         val jsonString = Gson().toJson(rulesMap)

@@ -771,6 +771,8 @@ class RollActivity : AppCompatActivity() {
         globalVariable.previousPlayerConsecutiveDoubleRolls = this.previousPlayerConsecutiveDoubleRolls
         globalVariable.lastLastRollWasDouble = this.lastLastRollWasDouble
         globalVariable.textConsequenceBuilder = this.textConsequenceBuilder
+        globalVariable.previousTextConsequence = this.previousTextConsequence
+        globalVariable.previousPreviousTextConsequence = this.previousPreviousTextConsequence
         //NEW
         globalVariable.currentSpecialRuleCase = this.currentSpecialRuleCase
         globalVariable.currentSpecialRuleConsequences = this.currentSpecialRuleConsequences
@@ -809,6 +811,8 @@ class RollActivity : AppCompatActivity() {
         this.previousPlayerConsecutiveDoubleRolls = globalVariable.previousPlayerConsecutiveDoubleRolls
         this.lastLastRollWasDouble = globalVariable.lastLastRollWasDouble
         this.textConsequenceBuilder = globalVariable.textConsequenceBuilder
+        this.previousTextConsequence = globalVariable.previousTextConsequence
+        this.previousPreviousTextConsequence = globalVariable.previousPreviousTextConsequence
         //NEW
         this.currentSpecialRuleCase = globalVariable.currentSpecialRuleCase
         this.currentSpecialRuleConsequences = globalVariable.currentSpecialRuleConsequences
