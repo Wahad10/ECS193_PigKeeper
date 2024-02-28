@@ -3,6 +3,8 @@ package com.example.pigkeeper
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class GlobalData: Application() {
     lateinit var players : ArrayList<String>
@@ -27,7 +29,6 @@ class GlobalData: Application() {
     var previousPlayer: String = ""
     var previousPlayerLastScore: Int = 0
     var endingPlayer: String = ""
-    //NEW Roll Screen Variables
     var mustNextRoll: Boolean = false
     var wasMustNextRoll: Boolean = false
     var lastRollWasForcedNextRoll: Boolean = false
@@ -40,10 +41,13 @@ class GlobalData: Application() {
     var previousPlayerConsecutiveDoubleRolls: Int = 0
     var lastLastRollWasDouble: Boolean = false
     var textConsequenceBuilder = StringBuilder()
+    //NEW Roll Screen Variables
+    lateinit var currentSpecialRuleCase: RulesActivity.SpecialRuleCase
+    lateinit var currentSpecialRuleConsequences: MutableList<RulesActivity.Consequence>
 
 
     //Add rules here, idk what data structure you want
-
+    var rulesMap: MutableMap<RulesActivity.SpecialRuleCase, MutableList<RulesActivity.Consequence>> = mutableMapOf()
 
 
 
@@ -131,6 +135,14 @@ class GlobalData: Application() {
         previousPlayerConsecutiveDoubleRolls = sharedPreferences.getInt("previousPlayerConsecutiveDoubleRolls", 0)
         lastLastRollWasDouble = sharedPreferences.getBoolean("lastLastRollWasDouble", false)
         textConsequenceBuilder = StringBuilder(sharedPreferences.getString("textConsequenceBuilder", ""))
+
+
+        //get the rules Map back from the JSON String if it is not empty (we had saved a rules Map before)
+        val jsonString = sharedPreferences.getString("rulesMap", "")
+        if (jsonString != null && jsonString.isNotEmpty()) {
+            val type = object : TypeToken<MutableMap<RulesActivity.SpecialRuleCase, MutableList<RulesActivity.Consequence>>>() {}.type
+            rulesMap = Gson().fromJson(jsonString, type)
+        }
     }
 
     fun saveData() {
@@ -188,6 +200,9 @@ class GlobalData: Application() {
         editor.putBoolean("lastLastRollWasDouble", lastLastRollWasDouble)
         editor.putString("textConsequenceBuilder", textConsequenceBuilder.toString())
 
+        //Use GSON to save rulesMap as a string to Shared Preferences
+        val jsonString = Gson().toJson(rulesMap)
+        editor.putString("rulesMap", jsonString)
 
         editor.apply()
     }

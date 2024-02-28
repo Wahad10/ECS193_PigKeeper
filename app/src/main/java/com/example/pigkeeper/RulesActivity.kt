@@ -8,6 +8,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.session.PlaybackState.CustomAction
+import android.util.Log
 import android.view.View
 import android.widget.ToggleButton
 //import java.lang.Error
@@ -28,16 +29,18 @@ class RulesActivity : AppCompatActivity() {
     }
 
     enum class SpecialRuleCase(val listOfConsequence:List<Consequence>) {
-        ROLL_7(listOf(Consequence.LOSE_TURN)),
-        SNAKE_EYES(listOf(Consequence.RESET_SCORE_TO_ZERO)),
+        ROLL_7(listOf(Consequence.RESET_TURN_SCORE, Consequence.LOSE_TURN)),
+        SNAKE_EYES(listOf(Consequence.RESET_SCORE_TO_ZERO, Consequence.LOSE_TURN)),
         BOX_CARS(listOf(Consequence.NO_EFFECT)),
         DOUBLE(listOf(Consequence.DOUBLE_POINTS, Consequence.MUST_ROLL_AGAIN)),
-        TRIPLE_DOUBLE(listOf(Consequence.RESET_SCORE_TO_ZERO)),
-        OFF_TABLE(listOf(Consequence.LOSE_TURN))
+        TRIPLE_DOUBLE(listOf(Consequence.RESET_SCORE_TO_ZERO, Consequence.LOSE_TURN)),
+        OFF_TABLE(listOf(Consequence.RESET_TURN_SCORE, Consequence.LOSE_TURN))
     }
 
 
     lateinit var globalVariable : GlobalData
+
+    private var rulesMap: MutableMap<SpecialRuleCase, MutableList<Consequence>> = mutableMapOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,13 +114,19 @@ class RulesActivity : AppCompatActivity() {
 
 
         //create Map, where SPCs are keys and list of consequences are value
-        val rulesMap: MutableMap<SpecialRuleCase, MutableList<Consequence>> = mutableMapOf()
-        rulesMap[SpecialRuleCase.ROLL_7] = mutableListOf(Consequence.LOSE_TURN)
-        rulesMap[SpecialRuleCase.SNAKE_EYES] = mutableListOf(Consequence.RESET_SCORE_TO_ZERO)
+        //MOVE THIS UP SO OTHER FUNCTIONS CAN ACESSS
+        // val rulesMap: MutableMap<SpecialRuleCase, MutableList<Consequence>> = mutableMapOf()
+        rulesMap[SpecialRuleCase.ROLL_7] = mutableListOf(Consequence.RESET_TURN_SCORE, Consequence.LOSE_TURN)
+        rulesMap[SpecialRuleCase.SNAKE_EYES] = mutableListOf(Consequence.RESET_SCORE_TO_ZERO, Consequence.LOSE_TURN)
         rulesMap[SpecialRuleCase.BOX_CARS] = mutableListOf(Consequence.NO_EFFECT)
         rulesMap[SpecialRuleCase.DOUBLE] = mutableListOf(Consequence.DOUBLE_POINTS, Consequence.MUST_ROLL_AGAIN)
-        rulesMap[SpecialRuleCase.TRIPLE_DOUBLE] = mutableListOf(Consequence.RESET_SCORE_TO_ZERO)
-        rulesMap[SpecialRuleCase.OFF_TABLE] = mutableListOf(Consequence.LOSE_TURN)
+        rulesMap[SpecialRuleCase.TRIPLE_DOUBLE] = mutableListOf(Consequence.RESET_SCORE_TO_ZERO, Consequence.LOSE_TURN)
+        rulesMap[SpecialRuleCase.OFF_TABLE] = mutableListOf(Consequence.RESET_TURN_SCORE, Consequence.LOSE_TURN)
+
+        //get most recent rulesMap from Global Data if there is one
+        if(globalVariable.rulesMap.isNotEmpty()){
+            this.rulesMap = globalVariable.rulesMap
+        }
 
         fun getMapKey(code: Int): SpecialRuleCase {
             return when (code) {
@@ -187,6 +196,28 @@ class RulesActivity : AppCompatActivity() {
         button2XPoints.setOnClickListener {
             _2xPointsIsActive = !_2xPointsIsActive //toggle isActive bool
 
+
+            //making sure mutually exclusive cannot be active at same time
+            if(_2xPointsIsActive && ResetScoreTo0IsActive){
+                ResetScoreTo0IsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.RESET_SCORE_TO_ZERO) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.RESET_SCORE_TO_ZERO)
+                }
+            }
+            if(_2xPointsIsActive && ResetTurnScoreIsActive){
+                ResetTurnScoreIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.RESET_TURN_SCORE) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.RESET_TURN_SCORE)
+                }
+            }
+            if(_2xPointsIsActive && NoEffectIsActive){
+                NoEffectIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.NO_EFFECT) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.NO_EFFECT)
+                }
+            }
+
+
             if (_2xPointsIsActive == false) {
                 if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.DOUBLE_POINTS) == true) {
                     rulesMap[currentSpecialRoleCase]?.remove(Consequence.DOUBLE_POINTS)
@@ -202,6 +233,22 @@ class RulesActivity : AppCompatActivity() {
 
         buttonLoseTurn.setOnClickListener {
             LoseTurnIsActive = !LoseTurnIsActive
+
+
+            //making sure mutually exclusive cannot be active at same time
+            if(MustRollAgainIsActive && LoseTurnIsActive){
+                MustRollAgainIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.MUST_ROLL_AGAIN) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.MUST_ROLL_AGAIN)
+                }
+            }
+            if(LoseTurnIsActive && NoEffectIsActive){
+                NoEffectIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.NO_EFFECT) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.NO_EFFECT)
+                }
+            }
+
 
             if (LoseTurnIsActive == false) {
                 if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.LOSE_TURN) == true) {
@@ -219,6 +266,22 @@ class RulesActivity : AppCompatActivity() {
         buttonRollAgain.setOnClickListener {
             MustRollAgainIsActive = !MustRollAgainIsActive
 
+
+            //making sure mutually exclusive cannot be active at same time
+            if(MustRollAgainIsActive && LoseTurnIsActive){
+                LoseTurnIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.LOSE_TURN) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.LOSE_TURN)
+                }
+            }
+            if(MustRollAgainIsActive && NoEffectIsActive){
+                NoEffectIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.NO_EFFECT) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.NO_EFFECT)
+                }
+            }
+
+
             if (MustRollAgainIsActive == false) {
                 if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.MUST_ROLL_AGAIN) == true) {
                     rulesMap[currentSpecialRoleCase]?.remove(Consequence.MUST_ROLL_AGAIN)
@@ -233,6 +296,28 @@ class RulesActivity : AppCompatActivity() {
 
         buttonResetTurnScore.setOnClickListener {
             ResetTurnScoreIsActive = !ResetTurnScoreIsActive
+
+
+            //making sure mutually exclusive cannot be active at same time
+            if(ResetTurnScoreIsActive && ResetScoreTo0IsActive){
+                ResetScoreTo0IsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.RESET_SCORE_TO_ZERO) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.RESET_SCORE_TO_ZERO)
+                }
+            }
+            if(ResetTurnScoreIsActive && _2xPointsIsActive){
+                _2xPointsIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.DOUBLE_POINTS) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.DOUBLE_POINTS)
+                }
+            }
+            if(ResetTurnScoreIsActive && NoEffectIsActive){
+                NoEffectIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.NO_EFFECT) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.NO_EFFECT)
+                }
+            }
+
 
             if (ResetTurnScoreIsActive == false) {
                 if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.RESET_TURN_SCORE) == true) {
@@ -249,6 +334,28 @@ class RulesActivity : AppCompatActivity() {
         buttonResetScoreToO.setOnClickListener {
             ResetScoreTo0IsActive = !ResetScoreTo0IsActive
 
+
+            //making sure mutually exclusive cannot be active at same time
+            if(ResetScoreTo0IsActive && _2xPointsIsActive){
+                _2xPointsIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.DOUBLE_POINTS) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.DOUBLE_POINTS)
+                }
+            }
+            if(ResetScoreTo0IsActive && ResetTurnScoreIsActive){
+                ResetTurnScoreIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.RESET_TURN_SCORE) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.RESET_TURN_SCORE)
+                }
+            }
+            if(ResetScoreTo0IsActive && NoEffectIsActive){
+                NoEffectIsActive = false
+                if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.NO_EFFECT) == true) {
+                    rulesMap[currentSpecialRoleCase]?.remove(Consequence.NO_EFFECT)
+                }
+            }
+
+
             if (ResetScoreTo0IsActive == false) {
                 if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.RESET_SCORE_TO_ZERO) == true) {
                     rulesMap[currentSpecialRoleCase]?.remove(Consequence.RESET_SCORE_TO_ZERO)
@@ -263,6 +370,20 @@ class RulesActivity : AppCompatActivity() {
 
         buttonNoEffect.setOnClickListener {
             NoEffectIsActive = !NoEffectIsActive
+
+
+            //making sure mutually exclusive cannot be active at same time
+            if(NoEffectIsActive){
+                _2xPointsIsActive = false
+                LoseTurnIsActive = false
+                MustRollAgainIsActive = false
+                ResetTurnScoreIsActive = false
+                ResetScoreTo0IsActive = false
+                rulesMap[currentSpecialRoleCase]?.clear()
+                rulesMap[currentSpecialRoleCase]?.add(Consequence.NO_EFFECT)
+            }
+
+
 
             if (NoEffectIsActive == false) {
                 if (rulesMap[currentSpecialRoleCase]?.contains(Consequence.NO_EFFECT) == true) {
@@ -361,18 +482,22 @@ class RulesActivity : AppCompatActivity() {
             toggleAllButtonColors()
         }
 
-    }
 
+        //START THE SCREEN WITH THE FIRST RULES BUTTON CLICKED ALREADY, MORE INTUITIVE FOR USER
+        buttonRoll7.performClick()
+    }
 
     fun onSpecialTurnCaseClick(view: View) {
         specialTurnCaseSelected = !specialTurnCaseSelected
     }
 
 
-
     override fun onPause() {
         super.onPause()
+        //save rules data to global data
+        globalVariable.rulesMap = this.rulesMap
+
+        //save global variable state
         globalVariable.saveData()
     }
-
 }

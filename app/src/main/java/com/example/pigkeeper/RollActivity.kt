@@ -18,6 +18,11 @@ class RollActivity : AppCompatActivity() {
     private var namesArray = ArrayList<String>()
     private var nameToScore = HashMap<String, Int>()
     private var nameToPot = HashMap<String, Int>()
+    //NEW
+    private var rulesMap = mutableMapOf<RulesActivity.SpecialRuleCase, MutableList<RulesActivity.Consequence>>()
+    private lateinit var currentSpecialRuleCase: RulesActivity.SpecialRuleCase
+    private lateinit var currentSpecialRuleConsequences: MutableList<RulesActivity.Consequence>
+    //END NEW
 
     //Keep track of current roll screen
     private var selectedLeftDice: Int = 0
@@ -27,7 +32,6 @@ class RollActivity : AppCompatActivity() {
     private var rolledOnce: Boolean = false
     private var wasFirstRoll: Boolean = false
 
-    //NEW
     private var toggledBadRoll: Boolean = false
     private var mustNextRoll: Boolean = false
     private var wasMustNextRoll: Boolean = false
@@ -41,7 +45,7 @@ class RollActivity : AppCompatActivity() {
     private var previousPlayerConsecutiveDoubleRolls: Int = 0
     private var lastLastRollWasDouble: Boolean = false
     private var textConsequenceBuilder = StringBuilder()
-    //END NEW
+
 
     private var currentPlayer: String = ""
     private var currentPlayerLastTurnScore: Int = 0
@@ -86,6 +90,9 @@ class RollActivity : AppCompatActivity() {
         for (name in namesArray){
             nameToScore[name] = 0
         }
+
+        //GET RULES
+        rulesMap = globalVariable.rulesMap
 
 
         //Get all items from layout
@@ -225,12 +232,12 @@ class RollActivity : AppCompatActivity() {
                 if(!toggledBadRoll){
                     toggledBadRoll = true
                     selectedBadRoll = true
-                    updateScore()
                     selectedLeftDice = 0
                     selectedRightDice = 0
                     updateDiceButtonSelection(leftDiceButtons, -1)
                     updateDiceButtonSelection(rightDiceButtons, -1)
                     badRollButton.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP)
+                    updateScore()
                     showNextRollButton()
                 }else{
                     toggledBadRoll = false
@@ -325,22 +332,34 @@ class RollActivity : AppCompatActivity() {
         //hideTextConsequence()
 
 
-//       //need to implement special rule cases here
-        //bad roll
+       //need to implement special rule cases here
+        //BAD ROLL
         if(selectedBadRoll){
-            resetScoreToLastTurn()
-            loseTurn()
+            //resetScoreToLastTurn()
+            //loseTurn()
+            currentSpecialRuleCase = RulesActivity.SpecialRuleCase.OFF_TABLE
             selectedBadRoll = false
+            //YES I DO,dont really need these 3 lines here, just dont return early, no other ifs will be triggered i think
+            currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+            mapRuleConsequencesToFunctions()
             showScoreText()
             return
         }
-        //doubles
+        //DOUBLES
         if(selectedLeftDice == selectedRightDice){
-            //snake eyes
-            if(selectedScore == 2){
-                resetScoreToZero()
-                loseTurn()
-            //all other doubles
+            //SNAKE EYES
+            if(selectedScore == 2) {
+                //resetScoreToZero()
+                //loseTurn()
+                currentSpecialRuleCase = RulesActivity.SpecialRuleCase.SNAKE_EYES
+                currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                mapRuleConsequencesToFunctions()
+            //BOX CARS
+            }else if(selectedScore == 12){
+                currentSpecialRuleCase = RulesActivity.SpecialRuleCase.BOX_CARS
+                currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                mapRuleConsequencesToFunctions()
+            //ALL OTHER DOUBLES
             }else if (selectedScore != 0){
                 //MOVED IF ABOVE
                 lastRollWasDouble = true
@@ -348,20 +367,29 @@ class RollActivity : AppCompatActivity() {
                 if(consecutiveDoubleRolls > 1){
                     lastLastRollWasDouble = true
                 }
-                //3 doubles in a row
+                //3 DOUBLES IN A ROW
                 if(consecutiveDoubleRolls == 3){
-                    resetScoreToZero()
-                    loseTurn()
+                    //resetScoreToZero()
+                    //loseTurn()
+                    currentSpecialRuleCase = RulesActivity.SpecialRuleCase.TRIPLE_DOUBLE
+                    currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                    mapRuleConsequencesToFunctions()
                 }else{
-                    doublePoints()
-                    mustRollAgain()
+                    //doublePoints()
+                    //mustRollAgain()
+                    currentSpecialRuleCase = RulesActivity.SpecialRuleCase.DOUBLE
+                    currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                    mapRuleConsequencesToFunctions()
                 }
             }
         }
-        //7
+        //ROLL 7
         if(selectedScore == 7){
-            resetScoreToLastTurn()
-            loseTurn()
+            //resetScoreToLastTurn()
+            //loseTurn()
+            currentSpecialRuleCase = RulesActivity.SpecialRuleCase.ROLL_7
+            currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+            mapRuleConsequencesToFunctions()
         }
         //score is exactly 100
         if(currentPlayerNewScore == 100){
@@ -369,9 +397,33 @@ class RollActivity : AppCompatActivity() {
             loseTurn()
         }
 
+        //cant do it here, currentSpecialRuleCase may be uninitialized
+        //currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+        //mapRuleConsequencesToFunctions()
 
 
         showScoreText()
+    }
+
+    private fun mapRuleConsequencesToFunctions(){
+        if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.DOUBLE_POINTS)){
+            doublePoints()
+        }
+        if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.LOSE_TURN)){
+            loseTurn()
+        }
+        if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.MUST_ROLL_AGAIN)){
+            mustRollAgain()
+        }
+        if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.RESET_TURN_SCORE)){
+            resetScoreToLastTurn()
+        }
+        if(currentSpecialRuleConsequences.contains(RulesActivity.Consequence.RESET_SCORE_TO_ZERO)){
+            resetScoreToZero()
+        }
+
+        //this is actually changing the rulesMap itself i think
+        //currentSpecialRuleConsequences.clear()
     }
 
     private fun doublePoints(){
@@ -681,7 +733,7 @@ class RollActivity : AppCompatActivity() {
         globalVariable.previousPlayerLastScore = this.previousPlayerLastScore
         globalVariable.endingPlayer = this.endingPlayer
 
-        //NEW
+
         globalVariable.mustNextRoll = this.mustNextRoll
         globalVariable.wasMustNextRoll = this.wasMustNextRoll
         globalVariable.lastRollWasForcedNextRoll = this.lastRollWasForcedNextRoll
@@ -694,6 +746,9 @@ class RollActivity : AppCompatActivity() {
         globalVariable.previousPlayerConsecutiveDoubleRolls = this.previousPlayerConsecutiveDoubleRolls
         globalVariable.lastLastRollWasDouble = this.lastLastRollWasDouble
         globalVariable.textConsequenceBuilder = this.textConsequenceBuilder
+        //NEW
+        globalVariable.currentSpecialRuleCase = this.currentSpecialRuleCase
+        globalVariable.currentSpecialRuleConsequences = this.currentSpecialRuleConsequences
 
         //save scores to global vars
         globalVariable.nameToScore = this.nameToScore
@@ -729,6 +784,11 @@ class RollActivity : AppCompatActivity() {
         this.previousPlayerConsecutiveDoubleRolls = globalVariable.previousPlayerConsecutiveDoubleRolls
         this.lastLastRollWasDouble = globalVariable.lastLastRollWasDouble
         this.textConsequenceBuilder = globalVariable.textConsequenceBuilder
+        //NEW
+        this.currentSpecialRuleCase = globalVariable.currentSpecialRuleCase
+        this.currentSpecialRuleConsequences = globalVariable.currentSpecialRuleConsequences
+        //restore rules from global vars
+        this.rulesMap = globalVariable.rulesMap
 
         //restore scores from global vars
         this.nameToScore = globalVariable.nameToScore
