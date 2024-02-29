@@ -45,6 +45,8 @@ class RollActivity : AppCompatActivity() {
     private var previousPlayerConsecutiveDoubleRolls: Int = 0
     private var lastLastRollWasDouble: Boolean = false
     private var textConsequenceBuilder = StringBuilder()
+    private var previousTextConsequence: String = ""
+    private var previousPreviousTextConsequence: String = ""
 
 
     private var currentPlayer: String = ""
@@ -126,8 +128,9 @@ class RollActivity : AppCompatActivity() {
         hideNextButtons()
         undoRollButton.visibility = View.INVISIBLE
         // Initially show that player must roll at least once
-        if(!rolledOnce){
+        if(!rolledOnce && globalVariable.endedGameRound){
             addTextConsequence("| MUST ROLL ONCE |")
+            previousTextConsequence = textConsequenceBuilder.toString()
         }
 
 
@@ -164,8 +167,10 @@ class RollActivity : AppCompatActivity() {
                         //rolled at least once and unselected both die, might want to end turn
                         if (rolledOnce && selectedRightDice == 0 && !wasMustNextRoll) {
                             showNextPlayerButton()
+                            addTextConsequence(previousTextConsequence)
                         } else {
                             hideNextButtons()
+                            addTextConsequence(previousTextConsequence)
                         }
                     } else {
                         //select this dice
@@ -198,8 +203,10 @@ class RollActivity : AppCompatActivity() {
                         //rolled at least once and unselected both die, might want to end turn
                         if (rolledOnce && selectedLeftDice == 0 && !wasMustNextRoll) {
                             showNextPlayerButton()
+                            addTextConsequence(previousTextConsequence)
                         } else {
                             hideNextButtons()
+                            addTextConsequence(previousTextConsequence)
                         }
                     } else {
                         //select this dice
@@ -237,6 +244,7 @@ class RollActivity : AppCompatActivity() {
                     updateDiceButtonSelection(leftDiceButtons, -1)
                     updateDiceButtonSelection(rightDiceButtons, -1)
                     badRollButton.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP)
+                    hideTextConsequence()
                     updateScore()
                     showNextRollButton()
                 }else{
@@ -244,6 +252,7 @@ class RollActivity : AppCompatActivity() {
                     selectedBadRoll = false
                     badRollButton.setColorFilter(null)
                     showRollStartScore()
+                    addTextConsequence(previousTextConsequence)
                 }
             }
         }
@@ -304,10 +313,6 @@ class RollActivity : AppCompatActivity() {
     private fun hideTextConsequence(){
         textConsequenceBuilder.setLength(0)
         textConsequence.setVisibility(View.GONE);
-
-        if(!rolledOnce){
-            addTextConsequence("| MUST ROLL ONCE |")
-        }
     }
 
     //when unselecting a dice, it will show the roll start score
@@ -398,7 +403,7 @@ class RollActivity : AppCompatActivity() {
         //cant do it here, currentSpecialRuleCase may be uninitialized
         //currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
         //mapRuleConsequencesToFunctions()
-
+        Log.d("me",textConsequenceBuilder.toString())
 
         showScoreText()
     }
@@ -511,12 +516,15 @@ class RollActivity : AppCompatActivity() {
         //lastLastRollWasDouble = lastRollWasDouble
         resetVariables()
         //get rid of roll once text
-        if(wasFirstRoll){
-            val index: Int = textConsequenceBuilder.indexOf("| MUST ROLL ONCE |")
-            textConsequenceBuilder.delete(index, index + "| MUST ROLL ONCE |".length)
-            textConsequence.setText(textConsequenceBuilder)
-            textConsequence.setVisibility(View.VISIBLE)
-        }
+        Log.d("me",textConsequenceBuilder.toString())
+        //if(wasFirstRoll){
+        //    val index: Int = textConsequenceBuilder.indexOf("| MUST ROLL ONCE |")
+        //    textConsequenceBuilder.delete(index, index + "| MUST ROLL ONCE |".length)
+        //    textConsequence.setText(textConsequenceBuilder)
+        //    textConsequence.setVisibility(View.VISIBLE)
+        //}
+        previousPreviousTextConsequence = previousTextConsequence
+        previousTextConsequence = textConsequenceBuilder.toString()
     }
 
     //saves the current player's info and loads next player
@@ -571,7 +579,13 @@ class RollActivity : AppCompatActivity() {
         lastRollWasDouble = false
         consecutiveDoubleRolls = 0
         resetVariables()
+        //previousPreviousTextConsequence = previousTextConsequence
+        previousPreviousTextConsequence = textConsequenceBuilder.toString()
         hideTextConsequence()
+        if(!rolledOnce){
+            addTextConsequence("| MUST ROLL ONCE |")
+            previousTextConsequence = textConsequenceBuilder.toString()
+        }
     }
 
     //FOR NOW only undo once (the last action)
@@ -606,6 +620,8 @@ class RollActivity : AppCompatActivity() {
                 //disableDiceSelect = false
                 resetVariables()
                 hideTextConsequence()
+                previousTextConsequence = previousPreviousTextConsequence
+                addTextConsequence(previousPreviousTextConsequence)
 
             //if current player has rolled once
             } else if(rolledOnce){
@@ -651,6 +667,8 @@ class RollActivity : AppCompatActivity() {
                 disableDiceSelect = false
                 resetVariables()
                 hideTextConsequence()
+                previousTextConsequence = previousPreviousTextConsequence
+                addTextConsequence(previousPreviousTextConsequence)
             }
 
             /**if(lastRollWasMustNextRoll){
@@ -753,6 +771,8 @@ class RollActivity : AppCompatActivity() {
         globalVariable.previousPlayerConsecutiveDoubleRolls = this.previousPlayerConsecutiveDoubleRolls
         globalVariable.lastLastRollWasDouble = this.lastLastRollWasDouble
         globalVariable.textConsequenceBuilder = this.textConsequenceBuilder
+        globalVariable.previousTextConsequence = this.previousTextConsequence
+        globalVariable.previousPreviousTextConsequence = this.previousPreviousTextConsequence
         //NEW
         globalVariable.currentSpecialRuleCase = this.currentSpecialRuleCase
         globalVariable.currentSpecialRuleConsequences = this.currentSpecialRuleConsequences
@@ -791,6 +811,8 @@ class RollActivity : AppCompatActivity() {
         this.previousPlayerConsecutiveDoubleRolls = globalVariable.previousPlayerConsecutiveDoubleRolls
         this.lastLastRollWasDouble = globalVariable.lastLastRollWasDouble
         this.textConsequenceBuilder = globalVariable.textConsequenceBuilder
+        this.previousTextConsequence = globalVariable.previousTextConsequence
+        this.previousPreviousTextConsequence = globalVariable.previousPreviousTextConsequence
         //NEW
         this.currentSpecialRuleCase = globalVariable.currentSpecialRuleCase
         this.currentSpecialRuleConsequences = globalVariable.currentSpecialRuleConsequences
