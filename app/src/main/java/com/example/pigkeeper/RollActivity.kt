@@ -128,7 +128,7 @@ class RollActivity : AppCompatActivity() {
         hideNextButtons()
         undoRollButton.visibility = View.INVISIBLE
         // Initially show that player must roll at least once
-        if(!rolledOnce){
+        if(!rolledOnce && globalVariable.endedGameRound){
             addTextConsequence("| MUST ROLL ONCE |")
             previousTextConsequence = textConsequenceBuilder.toString()
         }
