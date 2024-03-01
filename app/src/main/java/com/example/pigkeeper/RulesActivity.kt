@@ -116,14 +116,10 @@ class RulesActivity : AppCompatActivity() {
         //create Map, where SPCs are keys and list of consequences are value
         //MOVE THIS UP SO OTHER FUNCTIONS CAN ACESSS
         // val rulesMap: MutableMap<SpecialRuleCase, MutableList<Consequence>> = mutableMapOf()
-        rulesMap[SpecialRuleCase.ROLL_7] = mutableListOf(Consequence.RESET_TURN_SCORE, Consequence.LOSE_TURN)
-        rulesMap[SpecialRuleCase.SNAKE_EYES] = mutableListOf(Consequence.RESET_SCORE_TO_ZERO, Consequence.LOSE_TURN)
-        rulesMap[SpecialRuleCase.BOX_CARS] = mutableListOf(Consequence.NO_EFFECT)
-        rulesMap[SpecialRuleCase.DOUBLE] = mutableListOf(Consequence.DOUBLE_POINTS, Consequence.MUST_ROLL_AGAIN)
-        rulesMap[SpecialRuleCase.TRIPLE_DOUBLE] = mutableListOf(Consequence.RESET_SCORE_TO_ZERO, Consequence.LOSE_TURN)
-        rulesMap[SpecialRuleCase.OFF_TABLE] = mutableListOf(Consequence.RESET_TURN_SCORE, Consequence.LOSE_TURN)
+        //MOVED DEFAULT RULESMAP TO GLOBALDATA, SO USERS CAN STILL PLAY WITHOUT GOING TO RULES SCREEN
 
-        //get most recent rulesMap from Global Data if there is one
+
+        //get most recent rulesMap from Global Data if there is one, there will always be one (defualt)
         if(globalVariable.rulesMap.isNotEmpty()){
             this.rulesMap = globalVariable.rulesMap
         }

@@ -3,11 +3,12 @@ package com.example.pigkeeper
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class GlobalData: Application() {
-    lateinit var players : ArrayList<String>
+    var players : ArrayList<String> = arrayListOf()
     var sittingOut = mutableMapOf<String, Boolean>()
     //Hashmap for current round score
     var nameToScore = HashMap<String, Int>(0)
@@ -53,7 +54,6 @@ class GlobalData: Application() {
     var rulesMap: MutableMap<RulesActivity.SpecialRuleCase, MutableList<RulesActivity.Consequence>> = mutableMapOf()
 
 
-
     // Shared preferences
     private val sharedPreferencesName = "MyPrefs"
     private lateinit var sharedPreferences: SharedPreferences
@@ -69,11 +69,24 @@ class GlobalData: Application() {
         super.onCreate()
         instance = this
 
+        //Default rules (applies even if user never goes to rules screen)
+        //Will be overridden in loaddata if user saved their own rules
+        rulesMap[RulesActivity.SpecialRuleCase.ROLL_7] = mutableListOf(RulesActivity.Consequence.RESET_TURN_SCORE, RulesActivity.Consequence.LOSE_TURN)
+        rulesMap[RulesActivity.SpecialRuleCase.SNAKE_EYES] = mutableListOf(RulesActivity.Consequence.RESET_SCORE_TO_ZERO, RulesActivity.Consequence.LOSE_TURN)
+        rulesMap[RulesActivity.SpecialRuleCase.BOX_CARS] = mutableListOf(RulesActivity.Consequence.DOUBLE_POINTS, RulesActivity.Consequence.MUST_ROLL_AGAIN)
+        rulesMap[RulesActivity.SpecialRuleCase.DOUBLE] = mutableListOf(RulesActivity.Consequence.DOUBLE_POINTS, RulesActivity.Consequence.MUST_ROLL_AGAIN)
+        rulesMap[RulesActivity.SpecialRuleCase.TRIPLE_DOUBLE] = mutableListOf(RulesActivity.Consequence.RESET_SCORE_TO_ZERO, RulesActivity.Consequence.LOSE_TURN)
+        rulesMap[RulesActivity.SpecialRuleCase.OFF_TABLE] = mutableListOf(RulesActivity.Consequence.RESET_TURN_SCORE, RulesActivity.Consequence.LOSE_TURN)
+        Log.d("rules me1", rulesMap[RulesActivity.SpecialRuleCase.ROLL_7]!!.toString())
+
         // Initialize shared preferences
         sharedPreferences = applicationContext.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
 
         // Load data from shared preferences
+        //Log.d("players me1", players.toString())
         loadData()
+        Log.d("rules me2", rulesMap[RulesActivity.SpecialRuleCase.ROLL_7]!!.toString())
+        Log.d("players me1", players.toString())
     }
 
     private fun loadData() {
@@ -145,8 +158,13 @@ class GlobalData: Application() {
         val jsonString = sharedPreferences.getString("rulesMap", "")
         if (jsonString != null && jsonString.isNotEmpty()) {
             val type = object : TypeToken<MutableMap<RulesActivity.SpecialRuleCase, MutableList<RulesActivity.Consequence>>>() {}.type
+            var previousRulesMap = rulesMap
             rulesMap = Gson().fromJson(jsonString, type)
+            if(rulesMap.isEmpty()){
+                rulesMap = previousRulesMap
+            }
         }
+        Log.d("loading rules map", jsonString.toString())
         //get the currentRuleCase and consequence back similar way
         val jsonString2 = sharedPreferences.getString("currentSpecialRuleCase", "")
         if (jsonString2 != null && jsonString2.isNotEmpty()) {
@@ -217,8 +235,10 @@ class GlobalData: Application() {
 
 
         //Use GSON to save rulesMap as a string to Shared Preferences
-        val jsonString = Gson().toJson(rulesMap)
-        editor.putString("rulesMap", jsonString)
+        if(rulesMap.isNotEmpty()){
+            val jsonString = Gson().toJson(rulesMap)
+            editor.putString("rulesMap", jsonString)
+        }
 
         //Use GSON to save currentRuleCase and Consequence as a string to Shared Preferences
         val jsonString2 = Gson().toJson(currentSpecialRuleCase)
