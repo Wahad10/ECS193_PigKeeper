@@ -37,8 +37,10 @@ class NewPlayersActivity : AppCompatActivity() {
 
         val buttonStartRound = findViewById<Button>(R.id.buttonStartRound)
         buttonStartRound.setOnClickListener{
-            globalVariable.players = namesArray
-            startActivity(Intent(this@NewPlayersActivity, TurnOrderActivity::class.java))
+            if(namesArray.isNotEmpty()){
+                globalVariable.players = namesArray
+                startActivity(Intent(this@NewPlayersActivity, TurnOrderActivity::class.java))
+            }
         }
 
         val buttonLoadLastPlayers = findViewById<Button>(R.id.buttonLoadLastPlayers)

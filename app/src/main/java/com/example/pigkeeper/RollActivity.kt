@@ -20,8 +20,8 @@ class RollActivity : AppCompatActivity() {
     private var nameToPot = HashMap<String, Int>()
     //NEW
     private var rulesMap = mutableMapOf<RulesActivity.SpecialRuleCase, MutableList<RulesActivity.Consequence>>()
-    private lateinit var currentSpecialRuleCase: RulesActivity.SpecialRuleCase
-    private lateinit var currentSpecialRuleConsequences: MutableList<RulesActivity.Consequence>
+    private var currentSpecialRuleCase = RulesActivity.SpecialRuleCase.ROLL_7
+    private var currentSpecialRuleConsequences: MutableList<RulesActivity.Consequence> = mutableListOf()
     //END NEW
 
     //Keep track of current roll screen
@@ -324,6 +324,7 @@ class RollActivity : AppCompatActivity() {
 
     //main logic function to calculate the players score based on the two dice
     private fun updateScore(){
+        Log.d("rules me", rulesMap[RulesActivity.SpecialRuleCase.ROLL_7]!!.toString())
         selectedScore = selectedLeftDice + selectedRightDice
         currentPlayerNewScore = nameToScore[currentPlayer]!! + selectedScore
 
@@ -344,9 +345,11 @@ class RollActivity : AppCompatActivity() {
             //loseTurn()
             currentSpecialRuleCase = RulesActivity.SpecialRuleCase.OFF_TABLE
             selectedBadRoll = false
-            //YES I DO,dont really need these 3 lines here, just dont return early, no other ifs will be triggered i think
-            currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
-            mapRuleConsequencesToFunctions()
+            //YES I DO,dont really need these 3 lines here, just dont return early, no other ifs will be triggered i think if(rulesMap[currentSpecialRuleCase] ! rulesMap[currentSpecialRuleCase].isNotEmpty()) {
+            if(rulesMap[currentSpecialRuleCase] != null && rulesMap[currentSpecialRuleCase]!!.isNotEmpty()){
+                currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                mapRuleConsequencesToFunctions()
+            }
             showScoreText()
             return
         }
@@ -363,27 +366,35 @@ class RollActivity : AppCompatActivity() {
                 //resetScoreToZero()
                 //loseTurn()
                 currentSpecialRuleCase = RulesActivity.SpecialRuleCase.TRIPLE_DOUBLE
-                currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
-                mapRuleConsequencesToFunctions()
+                if(rulesMap[currentSpecialRuleCase] != null && rulesMap[currentSpecialRuleCase]!!.isNotEmpty()){
+                    currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                    mapRuleConsequencesToFunctions()
+                }
             //SNAKE EYES
             }else if(selectedScore == 2) {
                 //resetScoreToZero()
                 //loseTurn()
                 currentSpecialRuleCase = RulesActivity.SpecialRuleCase.SNAKE_EYES
-                currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
-                mapRuleConsequencesToFunctions()
+                if(rulesMap[currentSpecialRuleCase] != null && rulesMap[currentSpecialRuleCase]!!.isNotEmpty()){
+                    currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                    mapRuleConsequencesToFunctions()
+                }
             //BOX CARS
             }else if(selectedScore == 12){
                 currentSpecialRuleCase = RulesActivity.SpecialRuleCase.BOX_CARS
-                currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
-                mapRuleConsequencesToFunctions()
+                if(rulesMap[currentSpecialRuleCase] != null && rulesMap[currentSpecialRuleCase]!!.isNotEmpty()){
+                    currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                    mapRuleConsequencesToFunctions()
+                }
             //ALL OTHER DOUBLES
             }else if (selectedScore != 0){
                 //doublePoints()
                 //mustRollAgain()
                 currentSpecialRuleCase = RulesActivity.SpecialRuleCase.DOUBLE
-                currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
-                mapRuleConsequencesToFunctions()
+                if(rulesMap[currentSpecialRuleCase] != null && rulesMap[currentSpecialRuleCase]!!.isNotEmpty()){
+                    currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                    mapRuleConsequencesToFunctions()
+                }
             }
         }
         //ROLL 7
@@ -391,8 +402,10 @@ class RollActivity : AppCompatActivity() {
             //resetScoreToLastTurn()
             //loseTurn()
             currentSpecialRuleCase = RulesActivity.SpecialRuleCase.ROLL_7
-            currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
-            mapRuleConsequencesToFunctions()
+            if(rulesMap[currentSpecialRuleCase] != null && rulesMap[currentSpecialRuleCase]!!.isNotEmpty()){
+                currentSpecialRuleConsequences = rulesMap[currentSpecialRuleCase]!!
+                mapRuleConsequencesToFunctions()
+            }
         }
         //score is exactly 100
         if(currentPlayerNewScore == 100){
