@@ -20,8 +20,8 @@ class RollActivity : AppCompatActivity() {
     private var nameToPot = HashMap<String, Int>()
     //NEW
     private var rulesMap = mutableMapOf<RulesActivity.SpecialRuleCase, MutableList<RulesActivity.Consequence>>()
-    private lateinit var currentSpecialRuleCase: RulesActivity.SpecialRuleCase
-    private lateinit var currentSpecialRuleConsequences: MutableList<RulesActivity.Consequence>
+    private var currentSpecialRuleCase = RulesActivity.SpecialRuleCase.ROLL_7
+    private var currentSpecialRuleConsequences: MutableList<RulesActivity.Consequence> = mutableListOf()
     //END NEW
 
     //Keep track of current roll screen
