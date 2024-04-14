@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4CAF50"
+    android:background="#b8f2fc"
     tools:context=".RollActivity">
 
     <androidx.cardview.widget.CardView
@@ -12,8 +12,9 @@
         android:layout_width="400dp"
         android:layout_height="70dp"
         android:layout_marginTop="10dp"
-        android:background="#FFB907"
-        app:cardBackgroundColor="#2196F3"
+        android:background="#000000"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#b8f2fc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -64,8 +65,9 @@
         android:id="@+id/cardBottom"
         android:layout_width="400dp"
         android:layout_height="100dp"
+        app:cardElevation="0dp"
         android:layout_marginBottom="10dp"
-        app:cardBackgroundColor="#673AB7"
+        app:cardBackgroundColor="#B8F2FC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -73,6 +75,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#B8F2FC"
             android:orientation="horizontal"
             android:padding="16dp">
 
@@ -81,14 +84,16 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginEnd="78dp"
-                app:srcCompat="@mipmap/badroll_foreground" />
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/cross_36" />
 
             <ImageButton
                 android:id="@+id/imageButtonUndoRoll"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginEnd="78dp"
-                app:srcCompat="@mipmap/undo_foreground" />
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/rotate_left_36" />
 
 
             <ImageButton
@@ -99,7 +104,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageButtonNextPlayer"
                 app:layout_constraintStart_toStartOf="@+id/imageButtonNextPlayer"
                 app:layout_constraintTop_toTopOf="@+id/imageButtonNextPlayer"
-                app:srcCompat="@mipmap/check_foreground" />
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/check_36" />
 
             <ImageButton
                 android:id="@+id/imageButtonNextPlayer"
@@ -109,18 +115,32 @@
                 app:layout_constraintBottom_toBottomOf="@+id/cardBottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@mipmap/nextplayer_foreground" />
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/arrow_right_36" />
 
 
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="411dp"
+        android:layout_height="547dp"
+        android:background="#6A000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.398" />
 
     <ImageButton
         android:id="@+id/imageButtonL1"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="15dp"
+        android:background="#000000"
+        android:backgroundTint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"

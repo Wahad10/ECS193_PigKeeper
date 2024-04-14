@@ -13,6 +13,7 @@
         android:layout_marginStart="108dp"
         android:layout_marginBottom="32dp"
         android:text="Consequences"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/buttonResetScoreTo0"
         app:layout_constraintStart_toStartOf="@+id/textRules" />
 
@@ -155,7 +156,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="32dp"
+        android:singleLine="false"
         android:text="Special Turn Cases"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/buttonRoll7"
         app:layout_constraintEnd_toEndOf="@+id/textRules" />
 
