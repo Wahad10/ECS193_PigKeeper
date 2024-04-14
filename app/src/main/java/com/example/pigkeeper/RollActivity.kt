@@ -243,7 +243,7 @@ class RollActivity : AppCompatActivity() {
                     selectedRightDice = 0
                     updateDiceButtonSelection(leftDiceButtons, -1)
                     updateDiceButtonSelection(rightDiceButtons, -1)
-                    badRollButton.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP)
+                    badRollButton.setColorFilter(Color.parseColor("#b8f2fc"), PorterDuff.Mode.SRC_ATOP)
                     hideTextConsequence()
                     updateScore()
                     showNextRollButton()
@@ -285,7 +285,7 @@ class RollActivity : AppCompatActivity() {
         }
 
         if(selectedDice > 0) {
-            buttons[selectedDice - 1].setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP) // Change color of selected button
+            buttons[selectedDice - 1].setColorFilter(Color.parseColor("#b8f2fc"), PorterDuff.Mode.SRC_ATOP) // Change color of selected button
         }
     }
 

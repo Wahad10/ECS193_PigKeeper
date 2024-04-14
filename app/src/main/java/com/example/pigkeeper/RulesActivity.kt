@@ -89,9 +89,9 @@ class RulesActivity : AppCompatActivity() {
 
         fun toggleButtonColor(button: Button, boolean: Boolean){
             if (boolean == true) {
-                button.backgroundTintList = ColorStateList.valueOf(Color.rgb(0,204,0))
+                button.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#47B847"))
             } else {
-                button.backgroundTintList = ColorStateList.valueOf(Color.rgb(103,80,164))
+                button.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3b444b"))
             }
         }
 
