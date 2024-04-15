@@ -243,7 +243,8 @@ class RollActivity : AppCompatActivity() {
                     selectedRightDice = 0
                     updateDiceButtonSelection(leftDiceButtons, -1)
                     updateDiceButtonSelection(rightDiceButtons, -1)
-                    badRollButton.setColorFilter(Color.parseColor("#b8f2fc"), PorterDuff.Mode.SRC_ATOP)
+                    //badRollButton.setColorFilter(Color.parseColor("#b8f2fc"), PorterDuff.Mode.SRC_ATOP)
+                    badRollButton.setColorFilter(Color.RED)
                     hideTextConsequence()
                     updateScore()
                     showNextRollButton()
@@ -253,6 +254,10 @@ class RollActivity : AppCompatActivity() {
                     badRollButton.setColorFilter(null)
                     showRollStartScore()
                     addTextConsequence(previousTextConsequence)
+                    hideNextButtons()
+                    if(!textConsequenceBuilder.toString().contains("MUST ROLL AGAIN") && rolledOnce){
+                        showNextPlayerButton()
+                    }
                 }
             }
         }
