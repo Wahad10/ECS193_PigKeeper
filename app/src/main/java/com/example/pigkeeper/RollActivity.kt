@@ -243,7 +243,8 @@ class RollActivity : AppCompatActivity() {
                     selectedRightDice = 0
                     updateDiceButtonSelection(leftDiceButtons, -1)
                     updateDiceButtonSelection(rightDiceButtons, -1)
-                    badRollButton.setColorFilter(Color.parseColor("#b8f2fc"), PorterDuff.Mode.SRC_ATOP)
+                    //badRollButton.setColorFilter(Color.parseColor("#b8f2fc"), PorterDuff.Mode.SRC_ATOP)
+                    badRollButton.setColorFilter(Color.RED)
                     hideTextConsequence()
                     updateScore()
                     showNextRollButton()
@@ -253,6 +254,10 @@ class RollActivity : AppCompatActivity() {
                     badRollButton.setColorFilter(null)
                     showRollStartScore()
                     addTextConsequence(previousTextConsequence)
+                    hideNextButtons()
+                    if(!textConsequenceBuilder.toString().contains("MUST ROLL AGAIN") && rolledOnce){
+                        showNextPlayerButton()
+                    }
                 }
             }
         }
@@ -492,7 +497,7 @@ class RollActivity : AppCompatActivity() {
         //if must roll again hide all next buttons
         if(mustNextRoll){
             hideNextButtons()
-            //not mustroll and rolledOnce at least so can go to next player
+        //not mustroll and rolledOnce at least so can go to next player
         }else{
             showNextPlayerButton()
         }
@@ -549,12 +554,18 @@ class RollActivity : AppCompatActivity() {
         //save current player's score to global array
         nameToScore[currentPlayer] = currentPlayerNewScore
 
+        Log.d("me1", endingPlayer)
         //check if the player surpassed 100 points or previous ending player's score
         //we will do one more turn and end the game at this player
         if(endingPlayer == "" && currentPlayerNewScore > 100 ||
            endingPlayer != "" && currentPlayerNewScore > nameToScore[endingPlayer]!!) {
             endingPlayer = currentPlayer
         }
+        //if ties, reset ending player to nothing
+        if(endingPlayer != "" && currentPlayer != endingPlayer && currentPlayerNewScore == nameToScore[endingPlayer]!!){
+            endingPlayer = ""
+        }
+        Log.d("me2", endingPlayer)
 
         //find next player in namesArray and save it to currentPlayer
         val currentPlayerIndex = namesArray.indexOf(currentPlayer)
@@ -837,7 +848,7 @@ class RollActivity : AppCompatActivity() {
 
         //update screen info
         showScoreText()
-        if(rolledOnce){
+        if(rolledOnce && !currentSpecialRuleConsequences.contains(RulesActivity.Consequence.MUST_ROLL_AGAIN)){
             showNextPlayerButton()
         }
         if(textConsequenceBuilder.length > 0){
