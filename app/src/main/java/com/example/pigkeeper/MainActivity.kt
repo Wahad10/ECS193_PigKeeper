@@ -3,6 +3,7 @@ package com.example.pigkeeper
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -27,6 +28,9 @@ class MainActivity : AppCompatActivity() {
 
         val buttonLastPot = findViewById<Button>(R.id.buttonLastPot)
         buttonLastPot.setOnClickListener{startActivity(Intent(this@MainActivity, LastPotActivity::class.java))}
+
+        val SettingsButton = findViewById<ImageButton>(R.id.SettingsButton)
+        SettingsButton.setOnClickListener{startActivity(Intent(this@MainActivity, SettingsActivity::class.java))}
     }
 
     private fun newGame(){

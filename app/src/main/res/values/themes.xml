@@ -1,10 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.PigKeeper" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
+        <!-- Set the window background color -->
         <item name="android:windowBackground">@color/background</item>
+        <!-- Set the primary color used for the app's branding -->
         <item name="colorPrimary">@color/button_color</item>
     </style>
 
+    <!-- Apply the base theme -->
     <style name="Theme.PigKeeper" parent="Base.Theme.PigKeeper" />
 </resources>
