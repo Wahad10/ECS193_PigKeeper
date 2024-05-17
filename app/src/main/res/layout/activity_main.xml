@@ -27,6 +27,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
+        style="@style/ButtonStyle"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
@@ -38,6 +39,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
+        style="@style/ButtonStyle"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
@@ -49,6 +51,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="@+id/buttonPlay"
         app:layout_constraintStart_toStartOf="@+id/buttonPlay"
+        style="@style/ButtonStyle"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
@@ -60,6 +63,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="@+id/buttonRules"
         app:layout_constraintStart_toStartOf="@+id/buttonRules"
+        style="@style/ButtonStyle"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageButton

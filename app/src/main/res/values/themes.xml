@@ -3,10 +3,19 @@
     <style name="Base.Theme.PigKeeper" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Set the window background color -->
         <item name="android:windowBackground">@color/background</item>
+
+        <!-- Set the default text color -->
+        <item name="android:textColor">@android:color/black</item>
+
         <!-- Set the primary color used for the app's branding -->
         <item name="colorPrimary">@color/button_color</item>
     </style>
 
     <!-- Apply the base theme -->
     <style name="Theme.PigKeeper" parent="Base.Theme.PigKeeper" />
+
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/round_button</item>
+    </style>
 </resources>
