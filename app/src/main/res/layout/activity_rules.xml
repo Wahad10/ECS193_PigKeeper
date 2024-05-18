@@ -25,6 +25,7 @@
         android:layout_marginTop="84dp"
         android:text="Reset Score to 0"
         app:layout_constraintStart_toStartOf="@+id/textRules"
+        style="@style/ButtonStyle"
         app:layout_constraintTop_toBottomOf="@+id/textRules" />
 
     <Button
@@ -33,6 +34,8 @@
         android:layout_height="wrap_content"
         android:text="Reset Turn Score"
         app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/buttonResetScoreTo0" />
 
     <Button
@@ -41,6 +44,8 @@
         android:layout_height="wrap_content"
         android:text="2x Points"
         app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/buttonResetTurnScore" />
 
     <Button
@@ -49,6 +54,8 @@
         android:layout_height="wrap_content"
         android:text="Lose Turn"
         app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/buttonDoublePoints" />
 
     <Button
@@ -57,6 +64,8 @@
         android:layout_height="wrap_content"
         android:text="Must Roll Again"
         app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoseTurn" />
 
     <Button
@@ -65,6 +74,8 @@
         android:layout_height="wrap_content"
         android:text="No Effect"
         app:layout_constraintStart_toStartOf="@+id/buttonResetScoreTo0"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/buttonMustRollAgain" />
 
     <Button
@@ -74,6 +85,8 @@
         android:onClick="onSpecialTurnCaseClick"
         android:text="3x Doubles"
         app:layout_constraintEnd_toEndOf="@+id/buttonDouble"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/buttonDouble" />
 
     <Button
@@ -85,6 +98,7 @@
         android:onClick="onSpecialTurnCaseClick"
         android:text="Roll 7"
         app:layout_constraintEnd_toEndOf="@+id/textRules"
+        style="@style/ButtonStyle"
         app:layout_constraintTop_toBottomOf="@+id/textRules" />
 
     <Button
@@ -94,6 +108,8 @@
         android:onClick="onSpecialTurnCaseClick"
         android:text="Off Table"
         app:layout_constraintEnd_toEndOf="@+id/button3xDoubles"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/button3xDoubles" />
 
     <Button
@@ -103,16 +119,19 @@
         android:onClick="onSpecialTurnCaseClick"
         android:text="Double"
         app:layout_constraintEnd_toEndOf="@+id/buttonBoxCars"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/buttonBoxCars" />
 
     <Button
         android:id="@+id/buttonBoxCars"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         android:onClick="onSpecialTurnCaseClick"
         android:text="Box Cars"
         app:layout_constraintEnd_toEndOf="@+id/buttonSnakeEyes"
+        style="@style/ButtonStyle"
         app:layout_constraintTop_toBottomOf="@+id/buttonSnakeEyes" />
 
     <TextView
@@ -132,10 +151,11 @@
         android:id="@+id/buttonSnakeEyes"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
         android:onClick="onSpecialTurnCaseClick"
         android:text="Snake Eyes"
         app:layout_constraintEnd_toEndOf="@+id/buttonRoll7"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/buttonRoll7" />
 
     <Button
@@ -148,7 +168,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textRules"
-        app:layout_constraintVertical_bias="0.79" />
+        style="@style/ButtonStyle"
+        app:layout_constraintVertical_bias="0.89" />
 
     <TextView
         android:id="@+id/textSpecialTurnCases"
