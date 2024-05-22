@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 
 class RollActivity : AppCompatActivity() {
     //Necessary data from other screens
@@ -101,7 +102,7 @@ class RollActivity : AppCompatActivity() {
         textConsequence = findViewById<TextView>(R.id.textConsequence)
         textYourScore = findViewById<TextView>(R.id.textYourScore)
         textTopScore = findViewById<TextView>(R.id.textTopScore)
-        val topCard = findViewById<CardView>(R.id.cardTop)
+        val topCard = findViewById<ConstraintLayout>(R.id.cardTop)
 
         leftDiceButtons = listOf<ImageButton>(
             findViewById(R.id.imageButtonL1),

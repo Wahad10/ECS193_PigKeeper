@@ -27,7 +27,7 @@ class NewPlayersActivity : AppCompatActivity() {
         val buttonAddPlayer = findViewById<Button>(R.id.buttonAddPlayer)
         buttonAddPlayer.setOnClickListener {
             val currentPlayerEntered = inputName.getText().toString()
-            if(currentPlayerEntered.isNotEmpty() && !namesArray.contains(currentPlayerEntered)){
+            if(currentPlayerEntered.isNotEmpty() && !namesArray.contains(currentPlayerEntered) && namesArray.size < 10){
                 namesArray.add(currentPlayerEntered)
                 playersEntered.append("$currentPlayerEntered\n")
                 inputName.getText().clear()
