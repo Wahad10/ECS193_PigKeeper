@@ -1,4 +1,4 @@
-package com.example.pigkeeper
+package com.ucdavis.pigkeeper
 
 import android.app.Application
 import android.content.Context

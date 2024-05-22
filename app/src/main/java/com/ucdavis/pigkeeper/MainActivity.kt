@@ -1,4 +1,4 @@
-package com.example.pigkeeper
+package com.ucdavis.pigkeeper
 
 import android.content.Intent
 import android.os.Bundle

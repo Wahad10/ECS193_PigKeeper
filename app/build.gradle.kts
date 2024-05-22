@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.pigkeeper"
+    namespace = "com.ucdavis.pigkeeper"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.pigkeeper"
+        applicationId = "com.ucdavis.pigkeeper"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

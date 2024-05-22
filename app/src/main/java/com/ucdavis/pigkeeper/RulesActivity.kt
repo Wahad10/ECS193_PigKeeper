@@ -1,4 +1,4 @@
-package com.example.pigkeeper
+package com.ucdavis.pigkeeper
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,13 +6,8 @@ import android.widget.Button
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.media.session.PlaybackState.CustomAction
-import android.util.Log
 import android.view.View
-import android.widget.ToggleButton
 //import java.lang.Error
-import kotlin.Error
 
 class RulesActivity : AppCompatActivity() {
 
