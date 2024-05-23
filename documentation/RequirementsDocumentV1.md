@@ -4,15 +4,19 @@ Team #16
 
 Khaiber Amin, Stephen Donecker, Jen Galicia, Wahad Latif
 
-Project: Android Application
+**Project: Android Application**
 
-Project Title: PigKeeper Game Tracker
+**Project Title: PigKeeper Game Tracker**
+
+&nbsp;
 
 **Introduction**
 
 The Pig Game is a popular dice game that uses the rolls of two dice to try and get the most points. There are many unique rolls that require different sets of points to be scored, both positive and negative. The problem with current score keeping applications is that they increase or decrease in powers of 10, making it really hard to go change to the correct score. Current score keeping apps also lack features such as tracking overall scores across games, adjusting player ordering, and having special turn cases apply automatically.
 
 Our app is made specifically for the Pig Game and seeks to solve these problems. We use a two dice input system so the phone can determine how the score should change based on the dice outcome alone. All calculations and special rules will be applied automatically, so the players only need to input their scores, streamlining the experience. 
+
+&nbsp;
 
 **Technology Survey**
 
@@ -84,6 +88,8 @@ Our app is made specifically for the Pig Game and seeks to solve these problems.
 
 Conclusion: We will use Android Studio/Kotlin as we will be focusing on making a quality Android product, and this choice will provide us with the proper features to make it happen. 
 
+&nbsp;
+
 -Project Management
 
 <span style="text-decoration:underline;">Option 1</span>: Jira Cloud [CHOSEN]
@@ -120,6 +126,8 @@ Conclusion: We will use Android Studio/Kotlin as we will be focusing on making a
 
 
 Conclusion: We will be using Jira Cloud for project management as it provides the necessary framework to properly create, manage, and complete sprints to help us stay organized and on top of our tasks. It also supports GitHub integration. 
+
+&nbsp;
 
 -Computer Vision 
 
@@ -195,6 +203,8 @@ Conclusion: We will be using Jira Cloud for project management as it provides th
 
 Conclusion: As this decision hinges on future progress, we have yet to decide on which technology to use for Computer Vision. We can properly make a decision based on our results with the Alpha product.
 
+&nbsp;
+
 **Wireframes**
 
 ![alt_text](documentation_images/wireframes.png)
@@ -229,20 +239,21 @@ After the game has ended, you will see the final scores screen. You can play ano
 * I want the application to be usable on an Android device.
 
      
-
+&nbsp;
 
 **Prototyping Code**
 
-** **Github URL: [https://github.com/Wahad10/ECS193_PigKeeper](https://github.com/Wahad10/ECS193_PigKeeper)** \
-**
+ **Github URL: [https://github.com/Wahad10/ECS193_PigKeeper](https://github.com/Wahad10/ECS193_PigKeeper)** 
+
+&nbsp;
 
 **Technologies Employed**
 
 
 
-* **Programming Language: **Kotlin
-* **GUI: **Android Studio
-* **Machine learning library: **Undecided
+* **Programming Language:** Kotlin
+* **GUI:** Android Studio
+* **Machine learning library:** Undecided
 
 
 
