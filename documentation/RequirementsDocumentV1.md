@@ -197,12 +197,7 @@ Conclusion: As this decision hinges on future progress, we have yet to decide on
 
 **Wireframes**
 
-
-
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image1.png "image_tooltip")
+![alt_text](documentation_images/wireframes.png)
 
 
 This is the wireframe for our application. It starts out with the main screen that can take you to “play”, “rules”, and “Last Pot”. The Rules takes you to a selection screen where you can either leave/view the default rules (chosen by the client) or you can change what each unique dice roll does. The Last Pot takes you to the ending earnings of the last game that was played. The Play button takes you to the player entry screen.
