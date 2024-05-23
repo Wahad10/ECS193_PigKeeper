@@ -4,15 +4,19 @@ Team #16
 
 Khaiber Amin, Stephen Donecker, Jen Galicia, Wahad Latif
 
-Project: Android Application
+**Project: Android Application**
 
-Project Title: PigKeeper Game Tracker
+**Project Title: PigKeeper Game Tracker**
+
+&nbsp;
 
 **Introduction**
 
 The Pig Game is a popular dice game that uses the rolls of two dice to try and get the most points. There are many unique rolls that require different sets of points to be scored, both positive and negative. The problem with current score keeping applications is that they increase or decrease in powers of 10, making it really hard to go change to the correct score. Current score keeping apps also lack features such as tracking overall scores across games, adjusting player ordering, and having special turn cases apply automatically.
 
 Our app is made specifically for the Pig Game and seeks to solve these problems. We use a two dice input system so the phone can determine how the score should change based on the dice outcome alone. All calculations and special rules will be applied automatically, so the players only need to input their scores, streamlining the experience. 
+
+&nbsp;
 
 **Technology Survey**
 
@@ -84,6 +88,8 @@ Our app is made specifically for the Pig Game and seeks to solve these problems.
 
 Conclusion: We will use Android Studio/Kotlin as we will be focusing on making a quality Android product, and this choice will provide us with the proper features to make it happen. 
 
+&nbsp;
+
 -Project Management
 
 <span style="text-decoration:underline;">Option 1</span>: Jira Cloud [CHOSEN]
@@ -120,6 +126,8 @@ Conclusion: We will use Android Studio/Kotlin as we will be focusing on making a
 
 
 Conclusion: We will be using Jira Cloud for project management as it provides the necessary framework to properly create, manage, and complete sprints to help us stay organized and on top of our tasks. It also supports GitHub integration. 
+
+&nbsp;
 
 -Computer Vision 
 
@@ -195,14 +203,11 @@ Conclusion: We will be using Jira Cloud for project management as it provides th
 
 Conclusion: As this decision hinges on future progress, we have yet to decide on which technology to use for Computer Vision. We can properly make a decision based on our results with the Alpha product.
 
+&nbsp;
+
 **Wireframes**
 
-
-
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image1.png "image_tooltip")
+![alt_text](documentation_images/wireframes.png)
 
 
 This is the wireframe for our application. It starts out with the main screen that can take you to “play”, “rules”, and “Last Pot”. The Rules takes you to a selection screen where you can either leave/view the default rules (chosen by the client) or you can change what each unique dice roll does. The Last Pot takes you to the ending earnings of the last game that was played. The Play button takes you to the player entry screen.
@@ -234,32 +239,35 @@ After the game has ended, you will see the final scores screen. You can play ano
 * I want the application to be usable on an Android device.
 
      
-
+&nbsp;
 
 **Prototyping Code**
 
-** **Github URL: [https://github.com/Wahad10/ECS193_PigKeeper](https://github.com/Wahad10/ECS193_PigKeeper)** \
-**
+ **Github URL: [https://github.com/Wahad10/ECS193_PigKeeper](https://github.com/Wahad10/ECS193_PigKeeper)** 
+
+&nbsp;
 
 **Technologies Employed**
 
 
 
-* **Programming Language: **Kotlin
-* **GUI: **Android Studio
-* **Machine learning library: **Undecided
+* **Programming Language:** Kotlin
+* **GUI:** Android Studio
+* **Machine learning library:** Undecided
 
-
+&nbsp;
 
 **Cost Analysis**
 
 Pig Game App will cost very little to develop and distribute. Since we are developing an android app, the only cost would be to put it up on the google play store (optional). The Google Play Store registration fee is $25. We can export the app as an APK to directly download through our own means with no cost if we choose to.
 
+&nbsp;
+
 **Social/Legal Aspect**
 
 We are not storing any sensitive data. We have not chosen whether we want the app to be open source. The only social aspect will be the app being free to play and giving users an easy way to play Pig.
 
-
+&nbsp;
 
 **Deliverables**
 
@@ -275,6 +283,8 @@ The deliverable is an Android mobile application. The required features are as f
 * Reload the players from the previous set
 * Be able to resume the game from where it was left off after exiting the application
 
+&nbsp;
+
 **Desired/Stretch Features**
 
 We aim to refactor, test, and debug to improve the user's experience. This includes, but not limited to, creating a "How to Play" screen for players who are new to Pig, allowing users to save custom rule presents, creating a character limit count when inputting player names, and redesigning the Turn Order/Sit Out screen. 
@@ -283,11 +293,13 @@ We plan to update our documentation as we create new features to our application
 
 Dice recognition is a stretch feature. By implementing computer vision, users will be able to use their phone's camera to capture dice rolls and automatically register their scores to the game, rather than manually inputting them. This feature would be an optional game setting. 
 
-
+&nbsp;
 
 **Beta Demonstration**
 
 We will demonstrate the beta version of our deliverable at the Engineering Design Showcase on June 6, 2024.
+
+&nbsp;
 
 **Handoff**
 
