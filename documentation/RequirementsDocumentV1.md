@@ -255,11 +255,13 @@ After the game has ended, you will see the final scores screen. You can play ano
 * **GUI:** Android Studio
 * **Machine learning library:** Undecided
 
-
+&nbsp;
 
 **Cost Analysis**
 
 Pig Game App will cost very little to develop and distribute. Since we are developing an android app, the only cost would be to put it up on the google play store (optional). The Google Play Store registration fee is $25. We can export the app as an APK to directly download through our own means with no cost if we choose to.
+
+&nbsp;
 
 **Social/Legal Aspect**
 
