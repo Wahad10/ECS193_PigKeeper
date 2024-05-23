@@ -1,4 +1,4 @@
-package com.example.pigkeeper
+package com.ucdavis.pigkeeper
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
