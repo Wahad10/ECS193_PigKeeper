@@ -1,15 +1,17 @@
-**Team 16 - PigKeeper**
+### **Team 16 - PigKeeper**
 
-**Development Plan**
+### **Development Plan**
 
+\
 **Meeting Times**
 
-_Client:_ TBD
+_Client:_ Wednesdays 10:00-10:30am
 
-_TA: _TBD
+_TA:_ Mondays 5:00-5:30pm
 
-_Team: _Tuesdays 3:00-3:30pm
+_Team:_ Tuesdays 3:00-3:30pm
 
+\
 **Expected Tasks/Features**
 
 ###### Quality of Life (QoL) Changes: 
@@ -40,6 +42,7 @@ Using computer vision, we hope to be able to incorporate dice recognition into P
 
 * _Expected Completion Date:  Week 9 (5/31)_
 
+\
 **Outline of Sprints**
 
 _*Note: Debugging will continue throughout project lifetime and be present in all sprints._
@@ -80,5 +83,7 @@ _*Note: Debugging will continue throughout project lifetime and be present in al
 * Implement dice recognition 
 * Any final improvements/refactoring
 
+\
 **Timeline of Work**
 
+![Development Plan Timeline](documentation_images/devPlanTimeline.png)
