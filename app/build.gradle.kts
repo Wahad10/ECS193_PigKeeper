@@ -46,6 +46,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    implementation("androidx.test.espresso:espresso-contrib:3.5.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -54,5 +55,9 @@ dependencies {
     implementation ("androidx.camera:camera-core:1.1.0")
     //added my own for GSON for saving rulesMap to sharedPreferences
     implementation("com.google.code.gson:gson:2.8.8")
+    //NEED TO ADD THIS
+    implementation("com.google.guava:guava:31.0.1-android")
+    androidTestImplementation("com.adevinta.android:barista:4.2.0")
+    androidTestImplementation("androidx.test:runner:1.5.2")
 
 }
