@@ -125,6 +125,9 @@ The onPause() function saves all relevant data to globalData.
 
 Example map, with Special Turn Cases (keys) and their associated List of Consequences (values)
 
+### **SettingsActivity.kt**
+
+-Displays the Settings Screen (activity_settings.xml). Sets up buttons, textViews, and imageView for the Computer Vision Test Feature. Allows for the use of phone camera (via camera imports) to take photos in a virtual space. This feature is currently in testing, and not polished or meant to be a part of the main PigKeeper game. 
 
 ### **TurnOrderActivity.kt**
 
@@ -217,6 +220,13 @@ Layout file for the Rules Screen. Contains 13 buttons in total (6 Special Rule C
 
 
 Rules Screen and its components 
+
+&nbsp;
+### **activity_settings.xml**
+
+Layout file for the Rules Screen. Contains 2 buttons, 1 Back Button to return to Main Menu screen, and 1 Take Picture Button for the Computer Vision Dice Recognition test feature. The ImageView on the bottom of the screen displays the camera in the virtual space provided. Note: Dice Recognition is a test feature that is not polished or ready for use by players. 
+
+![xmlSettings.png](documentation_images/xmlSettings.png)
 
 &nbsp;
 ### **activity_turn_order.xml**
