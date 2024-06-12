@@ -2,6 +2,7 @@ package com.ucdavis.pigkeeper
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,12 @@ class MainActivity : AppCompatActivity() {
 
         val buttonResume = findViewById<Button>(R.id.buttonResume)
         buttonResume.setOnClickListener{resumeGame()}
+
+        if(globalVariable.nameToScore.isEmpty()){
+            buttonResume.isEnabled = false
+        }else{
+            buttonResume.isEnabled = true
+        }
 
         val buttonRules = findViewById<Button>(R.id.buttonRules)
         buttonRules.setOnClickListener{startActivity(Intent(this@MainActivity, RulesActivity::class.java))}
