@@ -64,6 +64,7 @@ class TurnOrderActivity : AppCompatActivity() {
                 val button = findViewById<Button>(resources.getIdentifier("person$i", "id", packageName))
                 button.text = button.tag as String
             }
+            updateStartButtonState()
         }
 
         setupPlayerButtons()
@@ -96,8 +97,10 @@ class TurnOrderActivity : AppCompatActivity() {
                 } else {
                     setOrder(button)
                 }
+                updateStartButtonState()
             }
         }
+        updateStartButtonState()
     }
 
     private fun setOrder(button: Button) {
@@ -133,6 +136,11 @@ class TurnOrderActivity : AppCompatActivity() {
             sittingOut[button.tag as String] = false
             sittingOutSize -= 1
         }
+    }
+
+    private fun updateStartButtonState() {
+        val buttonStart = findViewById<Button>(R.id.buttonStart)
+        buttonStart.isEnabled = order.size + sittingOutSize == players.size
     }
 
     override fun onPause() {
