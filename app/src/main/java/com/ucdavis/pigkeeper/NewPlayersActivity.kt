@@ -97,17 +97,18 @@ class NewPlayersActivity : AppCompatActivity() {
                 buttonAddPlayer.setText("Add Player")
                 buttonAddPlayer.isEnabled = false
                 editingPlayer = -1
+                updateStartRoundButtonState()
             }
             else if(editingPlayer != -1 && currentPlayerEntered.isNotEmpty() && currentPlayerEntered.length < 20){
                 namesArray[editingPlayer-1] = currentPlayerEntered
                 textViewPlayers[editingPlayer-1].text = currentPlayerEntered
 
                 inputName.text.clear()
-                updateStartRoundButtonState()
 
                 buttonAddPlayer.setText("Add Player")
                 buttonAddPlayer.isEnabled = false
                 editingPlayer = -1
+                updateStartRoundButtonState()
             }
             else if (currentPlayerEntered.isNotEmpty() && !namesArray.contains(currentPlayerEntered) && namesArray.size < 10 && currentPlayerEntered.length < 20) {
                 namesArray.add(currentPlayerEntered)
@@ -175,7 +176,7 @@ class NewPlayersActivity : AppCompatActivity() {
 
     private fun updateStartRoundButtonState() {
         val buttonStartRound = findViewById<Button>(R.id.buttonStartRound)
-        buttonStartRound.isEnabled = namesArray.isNotEmpty()
+        buttonStartRound.isEnabled = namesArray.size > 1
     }
 
     private fun loadLastPlayers() {
