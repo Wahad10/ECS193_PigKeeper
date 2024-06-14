@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val buttonResume = findViewById<Button>(R.id.buttonResume)
         buttonResume.setOnClickListener{resumeGame()}
 
-        if(globalVariable.nameToScore.isEmpty()){
+        if(globalVariable.nameToScore.isEmpty() && globalVariable.endedGameSession){
             buttonResume.isEnabled = false
         }else{
             buttonResume.isEnabled = true
