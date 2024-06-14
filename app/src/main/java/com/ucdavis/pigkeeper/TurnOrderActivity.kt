@@ -140,7 +140,7 @@ class TurnOrderActivity : AppCompatActivity() {
 
     private fun updateStartButtonState() {
         val buttonStart = findViewById<Button>(R.id.buttonStart)
-        buttonStart.isEnabled = order.size + sittingOutSize == players.size
+        buttonStart.isEnabled = (order.size + sittingOutSize == players.size) && (order.size > 1)
     }
 
     override fun onPause() {
