@@ -139,9 +139,14 @@ class NewPlayersActivity : AppCompatActivity() {
                 // Enable or disable the button based on whether there is text in the input
                 buttonAddPlayer.isEnabled = s?.isNotEmpty() == true
 
-                if(editingPlayer != -1 && s?.isEmpty() == true){
+                if(editingPlayer != -1){
                     buttonAddPlayer.isEnabled = true
-                    buttonAddPlayer.setText("Remove")
+
+                    if(s?.isEmpty() == true){
+                        buttonAddPlayer.setText("Remove")
+                    }else{
+                        buttonAddPlayer.setText("Edit")
+                    }
                 }
 
                 if(namesArray.size == 10 && editingPlayer == -1){
