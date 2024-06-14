@@ -153,7 +153,7 @@ class NewPlayersActivity : AppCompatActivity() {
                     buttonAddPlayer.isEnabled = false
                 }
 
-                if (s != null && namesArray.contains(s.toString()) && editingPlayer == -1) {
+                if (s != null && namesArray.contains(s.toString())) {
                     buttonAddPlayer.isEnabled = false
                 }
             }
